@@ -12,7 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap.min
 //= require turbolinks
+
+//= require angular
+//= require angular-rails-templates
+// Angular Templates in app/assets/templates
+//= require_tree ../templates
 //= require_tree .
 //= require websocket_rails/main
 

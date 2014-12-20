@@ -15,10 +15,10 @@
 //= require bootstrap.min
 //= require turbolinks
 
+//= require websocket_rails/main
 //= require angular
 //= require angular-rails-templates
 // Angular Templates in app/assets/templates
 //= require_tree ../templates
 //= require_tree .
-//= require websocket_rails/main
 

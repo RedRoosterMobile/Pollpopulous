@@ -32,7 +32,7 @@ class PollsController < ApplicationController
 
     respond_to do |format|
       if @poll.save
-        format.html { redirect_to @poll, notice: 'Poll was successfully created.' }
+        format.html { redirect_to "/vote_here/#{@poll.url}", notice: 'Poll was successfully created.' }
         format.json { render :show, status: :created, location: @poll }
       else
         format.html { render :new }
@@ -68,7 +68,6 @@ class PollsController < ApplicationController
   def show_candidates
     @candidates = @poll.candidates
     @votes = @poll.votes
-    binding.pry
   end
 
   private

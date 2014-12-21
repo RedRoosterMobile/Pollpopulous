@@ -7,24 +7,40 @@ class WsPollsController < WebsocketRails::BaseController
     # or check https://github.com/lukas2/websockets_chat
   end
 
-  before_filter :only => :add_candidate do
-    puts 'add_candidate was called'
-  end
+  before_action :set_poll_by_url, only: [:add_candidate]
+  before_action :set_vote_by_nickname, only: [:vote_for_candidate]
 
   def add_candidate
-    # prevent multiple adds of the same name
-    poll = Poll.find_by_url(message[:url])
-
-    poll.candidates.each do |element|
-      if element.name == message[:name]
-        trigger_failure ( {:message => "option with name #{message[:name]} exists already"})
-        break
-      end
+    # prevent multiple adds of the same name for a poll
+    if @poll.candidates.where(name: message[:name]).length == 0
+      candidates = @poll.candidates.push(Candidate.new(name:message[:name]))
+      trigger_success( message: true)
+      WebsocketRails[@poll.url.parameterize.underscore.to_sym].trigger(:new_candidate, candidates.last.attributes)
+    else
+      trigger_failure ( {message: "option with name #{message[:name]} exists already for this poll"})
     end
+  end
 
-    poll.candidates.push(Candidate.new(name:message[:name]))
-    trigger_success( {:message => poll.candidates.last})
+  def vote_for_candidate
+    if @vote
+      # already voted for this poll
+      # trigger failure
+    else
+      # create vote on poll
+      # trigger success
+    end
+  end
 
+  private
+
+
+
+  def set_poll_by_url
+    @poll = Poll.find_by_url(message[:url])
+  end
+
+  def set_vote_by_nickname
+    @vote = @poll.votes.find_by_nickname(message[:nickname])
   end
 
 

@@ -13,7 +13,8 @@ WebsocketRails::EventMap.describe do
   # The above will handle an event triggered on the client like `product.new`.
   namespace :poll do
     subscribe :add_option, :to => WsPollsController, :with_method => :add_candidate
-    # subscribe :vote_on, :to => WsPollsController, :with_method => :vote_on
+    subscribe :vote_on, :to => WsPollsController, :with_method => :vote_on_candidate
     # subscribe :revoke_vote, :to => WsPollsController, :with_method => :revoke_vote
   end
+
 end

@@ -67,6 +67,7 @@ class PollsController < ApplicationController
 
   def show_candidates
     @candidates = @poll.candidates
+    @title = @poll.title
     @votes = @poll.votes
   end
 

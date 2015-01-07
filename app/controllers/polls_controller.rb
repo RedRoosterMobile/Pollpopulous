@@ -89,6 +89,9 @@ class PollsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def poll_params
-      params.require(:poll).permit(:title, :url)
+      poll = params.require(:poll).permit(:title, :url)
+      # todo: add some random string
+      poll['url'] = poll['url'].parameterize.underscore
+      return poll
     end
 end

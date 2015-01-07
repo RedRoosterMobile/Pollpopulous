@@ -16,8 +16,8 @@ class WsPollsController < WebsocketRails::BaseController
     if @poll.candidates.where(name: message[:name]).length == 0
       candidates = @poll.candidates.push(Candidate.new(name:message[:name]))
       trigger_success( message: true)
-      #todo: do the same in js, and add some hashvalue to avoid duplicated urls
-      WebsocketRails[@poll.url.parameterize.underscore.to_sym].trigger(:new_candidate, candidates.last.attributes)
+      #todo: add some hashvalue to avoid duplicated urls
+      WebsocketRails[@poll.url.to_sym].trigger(:new_candidate, candidates.last.attributes)
     else
       trigger_failure ( {message: "option with name #{message[:name]} exists already for this poll"})
     end

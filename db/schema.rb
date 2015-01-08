@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20141220151023) do
   create_table "candidates", force: true do |t|
     t.integer  "poll_id"
     t.string   "name"
+    t.string   "created_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

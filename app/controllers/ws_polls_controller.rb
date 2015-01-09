@@ -8,7 +8,7 @@ class WsPollsController < WebsocketRails::BaseController
   end
 
   before_action :set_poll_by_url, only: [:add_candidate,:vote_for_candidate]
-  #before_action :set_vote_by_nickname, only: [:vote_for_candidate]
+  before_action :set_vote_by_nickname, only: [:vote_for_candidate]
   #before_action :set_candidate_for_voting, only: [:vote_for_candidate]
 
   def add_candidate
@@ -39,14 +39,18 @@ class WsPollsController < WebsocketRails::BaseController
 
   def vote_for_candidate
     puts 'vote for candate'
-    #trigger_success( message: true)
-    #if @vote
+
+    if @vote
       # already voted for this poll
-      # trigger failure
-    #else
+      trigger_failure ( {message: 'you already voted for this poll'})
+    else
       # create vote on poll
       # trigger success
-    #end
+      puts message
+      @new_vote = Vote.new(poll_id: @poll.id, candidate_id: message[:candidate_id],nickname: message[:nickname])
+
+      trigger_success( message: @new_vote.save)
+    end
   end
 
   private

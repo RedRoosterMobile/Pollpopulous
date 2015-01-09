@@ -3,6 +3,7 @@ var name = '';
 var channel='';
 
 $(function(){
+    var url = location.pathname.split('/').splice(-1);
 
     var successVote = function(response) {
         console.log("Added Vote: "+response);
@@ -22,9 +23,13 @@ $(function(){
         // and the candidate_id
         var option_id = $(this).attr('data-option');
         var nickname = $('form#nickname_form').find('input').val();
-        var messageBody = {nickname:nickname,candidate_id:option_id};
+        var message = {
+            nickname: nickname,
+            candidate_id: option_id ,
+            url: url[0]
+        };
 
-        dispatcher.trigger('poll.vote_on', messageBody, successVote, failureVote);
+        dispatcher.trigger('vote.vote_on', message, successVote, failureVote);
     });
 
     var nicknameForm = $('form#nickname_form');
@@ -34,7 +39,7 @@ $(function(){
     if (storedNickname && storedNickname.length > 0)
         nicknameForm.find('input').attr('disabled','disabled');
     nicknameForm.find('input').val(storedNickname);
-    var url = location.pathname.split('/').splice(-1);
+
     console.log(url);
     channel = dispatcher.subscribe(url[0]);
     channel.bind('new_candidate', function(data) {

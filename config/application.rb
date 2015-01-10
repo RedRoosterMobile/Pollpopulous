@@ -2,6 +2,8 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
+# this is needed for scss font-url() to look in app/assets folder...
+require 'sprockets/railtie'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -19,6 +21,9 @@ module Pollpopulous
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    # Autoload lib/ folder including all subdirectories
+    config.autoload_paths += %W(#{config.root}/lib)
+
     config.generators do |g|
       g.test_framework :mini_test, :spec => true, :fixture => true
     end

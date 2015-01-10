@@ -29,7 +29,7 @@ $(function(){
             url: url[0]
         };
 
-        dispatcher.trigger('vote.vote_on', message, successVote, failureVote);
+        dispatcher.trigger('poll.vote_on', message, successVote, failureVote);
     });
 
     var nicknameForm = $('form#nickname_form');

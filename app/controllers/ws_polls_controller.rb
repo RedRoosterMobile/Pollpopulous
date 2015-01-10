@@ -50,6 +50,8 @@ class WsPollsController < WebsocketRails::BaseController
       @new_vote = Vote.new(poll_id: @poll.id, candidate_id: message[:candidate_id],nickname: message[:nickname])
 
       trigger_success( message: @new_vote.save)
+
+      # todo: update votes on clients
     end
   end
 

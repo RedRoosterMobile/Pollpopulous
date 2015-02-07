@@ -5,8 +5,15 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.0'
 # for heroku
 gem 'rails_12factor', group: :production
+
+
+platform :jruby do
+  gem 'activerecord-jdbcsqlite3-adapter'
+end
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+platform :ruby do
+  gem 'sqlite3'
+end
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -39,7 +46,7 @@ gem 'spring',        group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
+gem 'puma'
 gem 'websocket-rails'
 gem 'angularjs-rails', '1.3.0'
 # preload angular templates, no async request required
@@ -47,18 +54,21 @@ gem 'angularjs-rails', '1.3.0'
 # breaks on angular 1.3.1 sucks!!
 gem 'angular-rails-templates'
 group :development, :test do
-  gem 'jasmine'
-  gem 'pry'
+  #gem 'jasmine'
+  #gem 'pry'
 end
 # coverage
 group :test do
-  gem 'simplecov', '~> 0.9.0',require: false
-  gem 'webmock'
-  gem 'cucumber-rails', require: false
-  gem 'minitest'
-  gem 'cucumber'
-  gem 'poltergeist'
-  gem 'capybara_minitest_spec'
+  #gem 'simplecov', '~> 0.9.0',require: false
+  #gem 'webmock'
+  #gem 'cucumber-rails', require: false
+  #gem 'minitest'
+  #gem 'cucumber'
+  #gem 'poltergeist'
+  #gem 'capybara_minitest_spec'
   # database_cleaner is not required, but highly recommended
-  gem 'database_cleaner'
+  #gem 'database_cleaner'
 end
+
+
+

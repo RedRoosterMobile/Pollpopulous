@@ -68,6 +68,7 @@ class PollsController < ApplicationController
   def show_candidates
     @candidates = @poll.candidates.to_json(include: :votes)
     @title = @poll.title
+    @poll_id = @poll.id
     #@votes = @poll.votes
   end
 

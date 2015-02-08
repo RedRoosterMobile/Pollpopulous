@@ -1,4 +1,4 @@
-<div class="Pollpopulous" ng-controller="mainController"  ng-init="init(<%= @candidates %>)">
+<div class="Pollpopulous" ng-controller="mainController"  ng-init="init(<%= @candidates %>,<%= @poll_id %>)">
 <div class="row">
   <div class="well">
     <h1><%= @title %></h1>
@@ -28,16 +28,14 @@
   </tr>
   </thead>
   <tbody>
-  <!-- todo: to directive -->
   <tr ng-repeat="option in data.candidates">
-
     <td>{{option.name}}</td>
     <td>{{option.votes.length}}</td>
     <td>
       <div class="btn-group">
-        <a class="btn btn-primary vote" ng-click="vote()" >Vote here</a>
-        <a class="btn btn-default" ng-click="revokeVote()" >Revoke Vote</a>
-        <a class="btn btn-primary" ng-click="removeOption()" >Remove</a>
+        <a class="btn btn-primary vote" ng-click="vote(option.id)" >Vote here</a>
+        <a class="btn btn-default" ng-click="revokeVote(option.id)" >Revoke Vote</a>
+        <a class="btn btn-primary" ng-click="removeOption(option.id)" >Remove</a>
       </div>
     </td>
   </tr>

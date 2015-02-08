@@ -7,7 +7,7 @@ class WsPollsController < WebsocketRails::BaseController
     # or check https://github.com/lukas2/websockets_chat
   end
 
-  before_action :set_poll_by_url, only: [:add_candidate,:vote_for_candidate]
+  before_action :set_poll, only: [:add_candidate,:vote_for_candidate]
   before_action :set_vote_by_nickname, only: [:vote_for_candidate]
   #before_action :set_candidate_for_voting, only: [:vote_for_candidate]
 
@@ -51,6 +51,9 @@ class WsPollsController < WebsocketRails::BaseController
 
       trigger_success( message: @new_vote.save)
 
+      # trigger update of all channel members
+      WebsocketRails[@poll.url.to_sym].trigger(:new_vote, {poll_id:@poll.id, vote: @new_vote} )
+
       # todo: update votes on clients
     end
   end
@@ -74,8 +77,12 @@ class WsPollsController < WebsocketRails::BaseController
     end
   end
 
-  def set_poll_by_url
-    @poll = Poll.find_by_url(message[:url])
+  def set_poll
+    unless message[:poll_id]
+      @poll = Poll.find_by_url(message[:url])
+    else
+      @poll = Poll.find(message[:poll_id])
+    end
   end
 
   def set_vote_by_nickname

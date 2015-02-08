@@ -5,30 +5,77 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
     $scope.data = {};
     var url = location.pathname.split('/').splice(-1);
     var dispatcher = new WebSocketRails(location.host + '/websocket');
+    var channel = dispatcher.subscribe(url[0]);
 
-
-    //$scope.$on('notification-event', function(event, args) {});
-    // TODO: move init to service/factory
-    $scope.init = function(msg){
+    $scope.init = function(msg,poll_id){
         console.log('init called');
         console.log(msg);
 
         // todo: build html via: ng-repeat?
         $scope.data.candidates=msg;
+        $scope.data.poll_id=poll_id;
+
         var storedNickname = localStorage.getItem('nickname');
         //if (storedNickname && storedNickname.length > 0)
         //    nicknameForm.find('input').attr('disabled','disabled');
         $scope.data.nickname = storedNickname;
 
 
-        $scope.vote = function() {
+        // catch broadcasts on channel
+        channel.bind('new_candidate', function(data) {
+            $scope.data.candidates = data;
+        });
+        channel.bind('new_vote', function(data) {
+            console.log('new_vote');
+            for (var i=0;i<$scope.data.candidates.length;i++) {
+                console.log(' '+data.poll_id+' '+$scope.data.candidates[i].poll_id);
+                if ($scope.data.candidates[i].poll_id==data.poll_id) {
+                    $scope.$apply(function() {
+                        // update goes here
+                        $scope.data.candidates[i].votes.push(data.vote);
+                        break;
+                    });
+                }
+            }
+        });
+
+        var wsSuccess= function(data){
+            console.log('ws: successful');
+            console.log(data);
+        };
+        var wsFailure = function(data) {
+            console.log('ws: failed');
+            console.log(data);
+        };
+
+
+        $scope.vote = function(option_id) {
           console.log('clicked vote');
+            console.log(option_id);
+            console.log($scope.data.nickname);
+            console.log($scope.data.poll_id);
+            var message = {
+                nickname: $scope.data.nickname,
+                candidate_id: option_id ,
+                url: url[0],
+                poll_id: $scope.data.poll_id
+            };
+            dispatcher.trigger('poll.vote_on', message, wsSuccess, wsFailure);
         };
-        $scope.revokeVote = function() {
+        $scope.revokeVote = function(option_id) {
             console.log('clicked revoke');
+            console.log(option_id);
+            console.log($scope.data.nickname);
+            console.log($scope.data.poll_id);
         };
-        $scope.removeOption = function() {
-            console.log('clicked remove');
+        $scope.removeOption = function(option_id) {
+            console.log('clicked remove option');
+            console.log(option_id);
+            console.log($scope.data.nickname);
+            console.log($scope.data.poll_id);
+        };
+        $scope.addOption = function(name) {
+
         };
     };
 }]);

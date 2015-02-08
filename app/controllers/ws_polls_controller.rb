@@ -7,7 +7,7 @@ class WsPollsController < WebsocketRails::BaseController
     # or check https://github.com/lukas2/websockets_chat
   end
 
-  before_action :set_poll, only: [:add_candidate,:vote_for_candidate]
+  before_action :set_poll, only: [:revoke_vote,:add_candidate,:vote_for_candidate]
   before_action :set_vote_by_nickname, only: [:vote_for_candidate]
   #before_action :set_candidate_for_voting, only: [:vote_for_candidate]
 
@@ -37,6 +37,28 @@ class WsPollsController < WebsocketRails::BaseController
     end
   end
 
+  def revoke_vote
+    nickname = message[:nickname]
+    vote_id = message[:vote_id]
+
+    vote = Vote.find(vote_id)
+    if vote.nickname==nickname
+
+      if vote
+        vote_attribs=vote.attributes
+        vote.delete
+        trigger_success ( {message: 'vote revoked'})
+        # trigger update of all channel members
+        WebsocketRails[@poll.url.to_sym].trigger(:revoked_vote, {candidate_id: candidate_id, vote: vote_attribs} )
+      else
+        trigger_failure ( {message: 'vote not found'})
+      end
+    else
+      trigger_failure ( {message: 'this was not your vote'})
+    end
+
+  end
+
   def vote_for_candidate
     puts 'vote for candate'
 
@@ -47,12 +69,13 @@ class WsPollsController < WebsocketRails::BaseController
       # create vote on poll
       # trigger success
       puts message
-      @new_vote = Vote.new(poll_id: @poll.id, candidate_id: message[:candidate_id],nickname: message[:nickname])
+      candidate_id = message[:candidate_id]
+      @new_vote = Vote.new(poll_id: @poll.id, candidate_id: candidate_id,nickname: message[:nickname])
 
       trigger_success( message: @new_vote.save)
 
       # trigger update of all channel members
-      WebsocketRails[@poll.url.to_sym].trigger(:new_vote, {candidate_id:message[:candidate_id], vote: @new_vote} )
+      WebsocketRails[@poll.url.to_sym].trigger(:new_vote, {candidate_id: candidate_id, vote: @new_vote} )
 
       # todo: update votes on clients
     end

@@ -34,12 +34,28 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
                 $scope.data.candidates.push(data);
             });
         });
-        channel.bind('new_vote', function(data) {
-            //fixme: the view updates ALL polls!!!!!
+        channel.bind('revoked_vote', function(data) {
+            console.log('revoked vote');
+            for (var i=0;i<$scope.data.candidates.length;i++) {
+                if ($scope.data.candidates[i].id==data.candidate_id) {
+                    for (var j=0;j<$scope.data.candidates[i].votes.length;j++) {
+                        if ($scope.data.candidates[i].id==data.candidate_id) {
+                            //unset
+                            $scope.$apply(function() {
+                                // fixme: splice exact one
+                                $scope.data.candidates[i].votes[j].pop();
+                            });
+                        }
+                    }
+                }
+            }
 
+        });
+        channel.bind('new_vote', function(data) {
             console.log('new_vote');
             for (var i=0;i<$scope.data.candidates.length;i++) {
-                console.log(' '+data.poll_id+' '+$scope.data.candidates[i].poll_id);
+                console.log('data.cani_id '+data.candidate_id);
+                console.log('scope.data.candi_id '+$scope.data.candidates[i].id);
                 if ($scope.data.candidates[i].id==data.candidate_id) {
                     $scope.$apply(function() {
                         // update goes here
@@ -73,19 +89,19 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
                 poll_id: $scope.data.poll_id
             };
             dispatcher.trigger('poll.vote_on', message, wsSuccess, wsFailure);
-
         };
-        $scope.revokeVote = function(option_id) {
+        $scope.revokeVote = function(option) {
             console.log('clicked revoke');
-            console.log(option_id);
-            console.log($scope.data.nickname);
-            console.log($scope.data.poll_id);
-        };
-        $scope.removeOption = function(option_id) {
-            console.log('clicked remove option');
-            console.log(option_id);
-            console.log($scope.data.nickname);
-            console.log($scope.data.poll_id);
+            for (var i=0;i<option.votes.length;i++) {
+                if (option.votes[i].nickname==$scope.data.nickname  ) {
+                    var message = {
+                        nickname: $scope.data.nickname,
+                        vote_id: option.votes[i].id,
+                        poll_id: $scope.data.poll_id
+                    };
+                    dispatcher.trigger('poll.revoke_vote', message, wsSuccess, wsFailure);
+                }
+            }
         };
         $scope.addOption = function() {
             var title = $scope.data.optionName;
@@ -95,9 +111,6 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
             if (nickname != '' && title != '') {
                 var message = { url: url,poll_id: $scope.data.poll_id, name: title };
                 dispatcher.trigger('poll.add_option', message, wsSuccess, wsFailure);
-                //nicknameForm.find('input').attr('disabled','disabled');
-
-
             } else if (title=='') {
                 console.log("define option title first ");
             } else if (nickname=='') {

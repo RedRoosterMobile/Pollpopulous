@@ -14,8 +14,7 @@ WebsocketRails::EventMap.describe do
   namespace :poll do
     subscribe :add_option, :to => WsPollsController, :with_method => :add_candidate
     subscribe :vote_on, :to => WsPollsController, :with_method => :vote_for_candidate
-
-    # subscribe :revoke_vote, :to => WsPollsController, :with_method => :revoke_vote
+    subscribe :revoke_vote, :to => WsPollsController, :with_method => :revoke_vote
   end
 
 end

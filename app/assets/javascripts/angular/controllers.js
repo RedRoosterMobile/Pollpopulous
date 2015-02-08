@@ -10,6 +10,7 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
     $scope.init = function(msg,poll_id){
         console.log('init called');
         console.log(msg);
+        $scope.data.optionName='';
 
         // todo: build html via: ng-repeat?
         $scope.data.candidates=msg;
@@ -23,7 +24,9 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
 
         // catch broadcasts on channel
         channel.bind('new_candidate', function(data) {
-            $scope.data.candidates = data;
+            $scope.$apply(function() {
+                $scope.data.candidates.push(data);
+            });
         });
         channel.bind('new_vote', function(data) {
             console.log('new_vote');
@@ -33,7 +36,6 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
                     $scope.$apply(function() {
                         // update goes here
                         $scope.data.candidates[i].votes.push(data.vote);
-                        break;
                     });
                 }
             }
@@ -74,8 +76,21 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
             console.log($scope.data.nickname);
             console.log($scope.data.poll_id);
         };
-        $scope.addOption = function(name) {
-
+        $scope.addOption = function() {
+            console.log($scope.data.optionName);
+            var title = $scope.data.optionName;
+            var nickname =$scope.data.nickname;
+            if (nickname != '' && title != '') {
+                var message = { url: url,poll_id: $scope.data.poll_id, name: title };
+                dispatcher.trigger('poll.add_option', message, wsSuccess, wsFailure);
+                //nicknameForm.find('input').attr('disabled','disabled');
+                // todo: save nickname somewhere
+                localStorage.setItem('nickname',nickname);
+            } else if (title=='') {
+                console.log("define option title first ");
+            } else if (nickname=='') {
+                console.log("define your nickname first");
+            }
         };
     };
 }]);

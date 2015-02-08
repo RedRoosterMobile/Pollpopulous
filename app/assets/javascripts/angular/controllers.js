@@ -20,10 +20,12 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
         $scope.data.poll_id=poll_id;
 
         var storedNickname = localStorage.getItem('nickname');
-        //if (storedNickname && storedNickname.length > 0)
-        //    nicknameForm.find('input').attr('disabled','disabled');
+        if (storedNickname && storedNickname.length > 0) {
+            $scope.data.nickname = storedNickname;
+            console.log('store nickname' + storedNickname);
+        }
 
-        $scope.data.nickname = storedNickname;
+
 
 
         // catch broadcasts on channel
@@ -33,10 +35,12 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
             });
         });
         channel.bind('new_vote', function(data) {
+            //fixme: the view updates ALL polls!!!!!
+
             console.log('new_vote');
             for (var i=0;i<$scope.data.candidates.length;i++) {
                 console.log(' '+data.poll_id+' '+$scope.data.candidates[i].poll_id);
-                if ($scope.data.candidates[i].poll_id==data.poll_id) {
+                if ($scope.data.candidates[i].id==data.candidate_id) {
                     $scope.$apply(function() {
                         // update goes here
                         $scope.data.candidates[i].votes.push(data.vote);
@@ -49,6 +53,7 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
             console.log('ws: successful');
             console.log(data);
             $scope.data.knownSender = true;
+            localStorage.setItem('nickname',$scope.data.nickname);
         };
         var wsFailure = function(data) {
             console.log('ws: failed');
@@ -68,6 +73,7 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
                 poll_id: $scope.data.poll_id
             };
             dispatcher.trigger('poll.vote_on', message, wsSuccess, wsFailure);
+
         };
         $scope.revokeVote = function(option_id) {
             console.log('clicked revoke');
@@ -90,8 +96,8 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
                 var message = { url: url,poll_id: $scope.data.poll_id, name: title };
                 dispatcher.trigger('poll.add_option', message, wsSuccess, wsFailure);
                 //nicknameForm.find('input').attr('disabled','disabled');
-                // todo: save nickname somewhere
-                localStorage.setItem('nickname',nickname);
+
+
             } else if (title=='') {
                 console.log("define option title first ");
             } else if (nickname=='') {

@@ -52,7 +52,7 @@ class WsPollsController < WebsocketRails::BaseController
       trigger_success( message: @new_vote.save)
 
       # trigger update of all channel members
-      WebsocketRails[@poll.url.to_sym].trigger(:new_vote, {poll_id:@poll.id, vote: @new_vote} )
+      WebsocketRails[@poll.url.to_sym].trigger(:new_vote, {candidate_id:message[:candidate_id], vote: @new_vote} )
 
       # todo: update votes on clients
     end

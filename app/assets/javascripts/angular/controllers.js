@@ -43,7 +43,10 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
                             //unset
                             $scope.$apply(function() {
                                 // fixme: splice exact one
-                                $scope.data.candidates[i].votes[j].pop();
+                                //ah=$scope.data.candidates[i].votes[j];
+                                console.log($scope.data.candidates[i].votes[j]);
+                                // kick it out
+                                $scope.data.candidates[i].votes.splice(j, 1);
                             });
                         }
                     }
@@ -97,7 +100,9 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
                     var message = {
                         nickname: $scope.data.nickname,
                         vote_id: option.votes[i].id,
-                        poll_id: $scope.data.poll_id
+                        poll_id: $scope.data.poll_id,
+                        candidate_id: option.id,
+                        url: url[0]
                     };
                     dispatcher.trigger('poll.revoke_vote', message, wsSuccess, wsFailure);
                 }

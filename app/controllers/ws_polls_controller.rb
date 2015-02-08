@@ -40,14 +40,14 @@ class WsPollsController < WebsocketRails::BaseController
   def revoke_vote
     nickname = message[:nickname]
     vote_id = message[:vote_id]
+    candidate_id = message[:candidate_id]
 
     vote = Vote.find(vote_id)
     if vote.nickname==nickname
-
       if vote
         vote_attribs=vote.attributes
-        vote.delete
         trigger_success ( {message: 'vote revoked'})
+        vote.delete
         # trigger update of all channel members
         WebsocketRails[@poll.url.to_sym].trigger(:revoked_vote, {candidate_id: candidate_id, vote: vote_attribs} )
       else
@@ -101,10 +101,10 @@ class WsPollsController < WebsocketRails::BaseController
   end
 
   def set_poll
-    unless message[:poll_id]
-      @poll = Poll.find_by_url(message[:url])
-    else
+    if message[:poll_id]
       @poll = Poll.find(message[:poll_id])
+    else
+      @poll = Poll.find_by_url(message[:url])
     end
   end
 

@@ -66,9 +66,9 @@ class PollsController < ApplicationController
   end
 
   def show_candidates
-    @candidates = @poll.candidates
+    @candidates = @poll.candidates.to_json(include: :votes)
     @title = @poll.title
-    @votes = @poll.votes
+    #@votes = @poll.votes
   end
 
   #def broadcast_message_to_channel(channel, event, data)

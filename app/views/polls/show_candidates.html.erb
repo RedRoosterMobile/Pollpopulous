@@ -1,4 +1,4 @@
-
+<div class="Pollpopulous" ng-controller="mainController"  ng-init="init(<%= @candidates %>)">
 <div class="row">
   <div class="well">
     <h1><%= @title %></h1>
@@ -15,7 +15,7 @@
   <form id="nickname_form" role="form">
     <div class="form-group">
       <label for="nickname">Name</label>
-      <input type="text" class="form-control" id="nickname" name="nickname" placeholder="your name">
+      <input type="text" class="form-control" id="nickname" name="nickname" placeholder="your name"  value="{{data.nickname}}">
     </div>
   </form>
 </div>
@@ -28,23 +28,20 @@
   </tr>
   </thead>
   <tbody>
-  <% @candidates.each do |candidate| %>
-      <!--id: 51, poll_id: 1, name: "dvsddv2344weerssjbsgg", created_at: "2014-12-21T19:42:26.318Z", updated_at: "2014-12-21T19:42:26.318Z"}-->
-      <tr>
-        <td><%= candidate.name %></td>
-        <td><%= candidate.votes.length%></td>
-        <td>
-          <div class="btn-group">
-              <a class="btn btn-primary vote" data-option="<%= candidate.id %>">Vote here</a>
-              <a class="btn btn-default" data-option="<%= candidate.id %>">Revoke Vote</a>
-              <a class="btn btn-primary" data-option="<%= candidate.id %>">Remove</a>
-          </div>
-        </td>
-      </tr>
-  <% end %>
+  <!-- todo: to directive -->
+  <tr ng-repeat="option in data.candidates">
+
+    <td>{{option.name}}</td>
+    <td>{{option.votes.length}}</td>
+    <td>
+      <div class="btn-group">
+        <a class="btn btn-primary vote" ng-click="vote()" >Vote here</a>
+        <a class="btn btn-default" ng-click="revokeVote()" >Revoke Vote</a>
+        <a class="btn btn-primary" ng-click="removeOption()" >Remove</a>
+      </div>
+    </td>
+  </tr>
   </tbody>
 </table>
 
-
-
-<p> <%= @candidates.to_json %></p>
+</div>

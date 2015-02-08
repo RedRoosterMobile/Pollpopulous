@@ -20,5 +20,19 @@
 //= require angular-rails-templates
 // Angular Templates in app/assets/templates
 //= require_tree ../templates
+
+
+// my angular stuff
+//= require angular/controllers
+//= require angular/directives
+//= require angular/services
+
+// other angular stuff
+//= require angular/animate
+//= require ui-bootstrap-tpls-0.11.2
+
 //= require_tree .
+
+
+
 

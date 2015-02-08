@@ -8,9 +8,12 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
     var channel = dispatcher.subscribe(url[0]);
 
     $scope.init = function(msg,poll_id){
+        $scope.data.nickname='';
         console.log('init called');
         console.log(msg);
-        $scope.data.optionName='';
+
+        $scope.data.knownSender = false;
+        $scope.data.optionName = '';
 
         // todo: build html via: ng-repeat?
         $scope.data.candidates=msg;
@@ -19,6 +22,7 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
         var storedNickname = localStorage.getItem('nickname');
         //if (storedNickname && storedNickname.length > 0)
         //    nicknameForm.find('input').attr('disabled','disabled');
+
         $scope.data.nickname = storedNickname;
 
 
@@ -44,6 +48,7 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
         var wsSuccess= function(data){
             console.log('ws: successful');
             console.log(data);
+            $scope.data.knownSender = true;
         };
         var wsFailure = function(data) {
             console.log('ws: failed');
@@ -77,9 +82,10 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
             console.log($scope.data.poll_id);
         };
         $scope.addOption = function() {
-            console.log($scope.data.optionName);
             var title = $scope.data.optionName;
             var nickname =$scope.data.nickname;
+            console.log(title);
+            console.log(nickname);
             if (nickname != '' && title != '') {
                 var message = { url: url,poll_id: $scope.data.poll_id, name: title };
                 dispatcher.trigger('poll.add_option', message, wsSuccess, wsFailure);

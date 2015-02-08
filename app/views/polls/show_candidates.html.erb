@@ -15,7 +15,7 @@
   <form id="nickname_form" role="form">
     <div class="form-group">
       <label for="nickname">Name</label>
-      <input type="text" disabled="{{(data.nickname+'')!=''}}" class="form-control" id="nickname" name="nickname" placeholder="your name"  value="{{data.nickname}}">
+      <input type="text" ng-disabled="{{data.knownSender}}" class="form-control" id="nickname" name="nickname" placeholder="your name"  value="{{data.nickname}}">
     </div>
   </form>
 </div>

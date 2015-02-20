@@ -21,7 +21,10 @@
 // Angular Templates in app/assets/templates
 //= require_tree ../templates
 
-
+// charts
+//= require d3
+//= require nv.d3
+//= require angular/modules/angularjs-nvd3-directives
 // my angular stuff
 //= require angular/controllers
 //= require angular/directives

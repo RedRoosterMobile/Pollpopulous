@@ -1,6 +1,23 @@
-var controllers = angular.module('Pollpopulous.controllers',[]);
+var controllers = angular.module('Pollpopulous.controllers',['nvd3ChartDirectives']);
 
 controllers.controller('mainController',['$scope','$http','$timeout',function($scope,$http,$timeout) {
+
+    $scope.xFunction = function(){
+        return function(d) {
+            return d.name;
+        };
+    };
+    $scope.yFunction = function(){
+        return function(d) {
+            return d.votes.length;
+        };
+    };
+    $scope.descriptionFunction = function(){
+        return function(d){
+            return d.name;
+        }
+    };
+
 
     $scope.data = {};
     var url = location.pathname.split('/').splice(-1);
@@ -14,8 +31,7 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
 
         $scope.data.knownSender = false;
         $scope.data.optionName = '';
-
-        // todo: build html via: ng-repeat?
+        console.log(msg);
         $scope.data.candidates=msg;
         $scope.data.poll_id=poll_id;
 

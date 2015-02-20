@@ -12,6 +12,8 @@
  *
  *= require fonts
  *= require amelia.theme.bootsrap.css.scss
+ *= require nv.d3
+ *= require nv.d3.overrides
  *= require_tree .
  *= require_self
  */

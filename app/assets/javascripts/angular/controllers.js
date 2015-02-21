@@ -81,20 +81,34 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
             });
         });
         channel.bind('revoked_vote', function(data) {
-            console.log('revoked vote');
+            console.log('revoked vote-----------------');
+
+            console.log(data);
+            // fixme optimize this!
+
             var smash = false;
             for (var i=0;i<$scope.data.candidates.length;i++) {
                 if ($scope.data.candidates[i].id==data.candidate_id) {
+
+
+
+
                     for (var j=0;j<$scope.data.candidates[i].votes.length;j++) {
-                        if ($scope.data.candidates[i].id==data.candidate_id) {
+
+                        var isSameName=$scope.data.candidates[i].votes[j].nickname==data.vote.nickname;
+                        var isSameId=$scope.data.candidates[i].votes[j].id==data.vote.id;
+
+
+                        if (isSameName) {
                             //unset
+                            console.log($scope.data.candidates[i].votes[j]);
                             $scope.$apply(function() {
                                 // fixme: splice exact one
                                 //ah=$scope.data.candidates[i].votes[j];
-                                console.log($scope.data.candidates[i].votes[j]);
                                 // kick it out
-                                $scope.data.candidates[i].votes.splice(j, 1);
-
+                                var spliced=$scope.data.candidates[i].votes.splice(j, 1);
+                                console.log(spliced);
+                                console.log(spliced);
                                 // end loop
                                 //j=$scope.data.candidates[i].length+1;
                                 smash = true;
@@ -166,6 +180,8 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
         $scope.revokeVote = function(option) {
             console.log('clicked revoke');
             for (var i=0;i<option.votes.length;i++) {
+                console.log(option.votes[i].nickname);
+                console.log($scope.data.nickname);
                 if (option.votes[i].nickname==$scope.data.nickname  ) {
                     var message = {
                         nickname: $scope.data.nickname,

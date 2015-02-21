@@ -42,7 +42,8 @@ class WsPollsController < WebsocketRails::BaseController
     vote_id = message[:vote_id]
     candidate_id = message[:candidate_id]
 
-    vote = Vote.where(id: vote_id, nickname: nickname)
+    #vote = Vote.where(id: vote_id, nickname: nickname)
+    vote = Vote.where(nickname: nickname,poll_id: @poll.id, candidate_id: candidate_id)
 
     if vote.first
       trigger_success ({message: 'vote revoked', attr: vote.first.attributes})

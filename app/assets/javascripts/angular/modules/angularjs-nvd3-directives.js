@@ -800,6 +800,8 @@
 
         var svg = d3.select( d3Select + ' svg' );
         applyDefs(svg);
+        // how to pass an argument?
+        //scope.defs(svg);
         // paint chart
         d3.select( d3Select + ' svg' ).attr( 'viewBox', '0 0 ' + scope.width + ' ' + scope.height ).datum( data ).transition().duration( attrs.transitionduration === undefined ? 250 : +attrs.transitionduration ).call( chart );
         // add shadow here
@@ -1900,6 +1902,10 @@
                     legendrightalign: '@',
                     legendupdatestate: '@',
                     legendradiobuttonmode: '@',
+                    //TODO stlye callback
+                    //TODO defs callback
+                    defs: '&',
+                    styles: '&',
                     objectequality: '@',
                     transitionduration: '@'
                 },
@@ -1940,6 +1946,7 @@
                                     if ( attrs.tooltipcontent ) {
                                         chart.tooltipContent( scope.tooltipcontent() );
                                     }
+                                    // todo: apply custom functions above
                                     scope.d3Call( data, chart );
                                     nv.utils.windowResize( chart.update );
                                     scope.chart = chart;

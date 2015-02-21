@@ -18,6 +18,7 @@
       donutLabelsOutside="false"
       labelType="percent"
       color="color()"
+      defs="defs()"
       objectequality="true"
       transitionduration="500">
         <svg height="200" ></svg>
@@ -29,6 +30,8 @@
         <h1><%= @title %></h1>
       </div>
     </div>
+    <!--<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>-->
+    <mm-alert-box></mm-alert-box>
 
 
     <!--<div class="chart-holder">

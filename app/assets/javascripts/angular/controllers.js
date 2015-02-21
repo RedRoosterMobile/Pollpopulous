@@ -20,6 +20,22 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
     $scope.getIndexOfCandidate = function(candidate) {
         return $scope.data.candidates.indexOf(candidate);
     };
+    $scope.defs= function(svg) {
+        console.log('defs!!!!!!!!!!!!!!!!!!!!!');
+        //console.log(svg);
+        return function(d){
+            console.log('d');
+            console.log(d);
+        }
+    };
+    $scope.alerts = [
+       /* { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
+         { type: 'success', msg: 'Well done! You successfully read this important alert message.' }*/
+    ];
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
+
     var colors = [
         'url(#gradientForegroundPurple)',
         'url(#gradientForegroundRed)',
@@ -108,6 +124,23 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
         var wsFailure = function(data) {
             console.log('ws: failed');
             console.log(data);
+            $scope.$apply(function(){
+                $scope.alerts.push(
+                    {
+                        msg: data.message,
+                        type: 'warning'
+                    }
+                );
+            });
+
+
+            // trigger leave animation after certain time
+            $timeout(function() {
+                var numAlerts = $scope.alerts.length;
+                if (numAlerts) {
+                    $scope.closeAlert($scope.alerts[numAlerts - 1]);
+                }
+            },6000); // fiqure out a way to eliminate this timer
         };
 
 

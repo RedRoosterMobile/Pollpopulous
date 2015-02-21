@@ -43,11 +43,6 @@
 
 
 
-
-
-
-
-
 /**
  * | {@link ng.directive:ngRepeat#usage_animations ngRepeat}    | enter, leave and move
  http://www.yearofmoo.com/2013/08/remastered-animation-in-angularjs-1-2.html
@@ -95,4 +90,5 @@
   left:0;
   padding: 15px;
   max-width: 50%;
+  min-width: 300px;
 }

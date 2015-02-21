@@ -24,6 +24,7 @@
 // charts
 //= require d3
 //= require nv.d3
+//= require angular/modules/angular.audio
 //= require angular/modules/angularjs-nvd3-directives
 // my angular stuff
 //= require angular/controllers

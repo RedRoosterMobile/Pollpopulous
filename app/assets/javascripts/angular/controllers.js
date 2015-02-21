@@ -1,7 +1,9 @@
-var controllers = angular.module('Pollpopulous.controllers',['nvd3ChartDirectives']);
+var controllers = angular.module('Pollpopulous.controllers',['nvd3ChartDirectives','ngAudio']);
 
-controllers.controller('mainController',['$scope','$http','$timeout',function($scope,$http,$timeout) {
+controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',function($scope,$http,$timeout,$ngAudio) {
 
+    $scope.sfxBlip = $ngAudio.load("/blip.wav");
+    $scope.sfxCoin = $ngAudio.load("/coin.wav");
     $scope.xFunction = function(){
         return function(d) {
             return d.name;
@@ -120,6 +122,7 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
             console.log(data);
             $scope.data.knownSender = true;
             localStorage.setItem('nickname',$scope.data.nickname);
+            $scope.sfxCoin.play();
         };
         var wsFailure = function(data) {
             console.log('ws: failed');
@@ -132,15 +135,14 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
                     }
                 );
             });
-
-
+            $scope.sfxBlip.play();
             // trigger leave animation after certain time
             $timeout(function() {
                 var numAlerts = $scope.alerts.length;
                 if (numAlerts) {
                     $scope.closeAlert($scope.alerts[numAlerts - 1]);
                 }
-            },6000); // fiqure out a way to eliminate this timer
+            },3000); // fiqure out a way to eliminate this timer
         };
 
 

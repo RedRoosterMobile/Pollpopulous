@@ -3,21 +3,27 @@
   <div class="well">
     <h1><%= @title %></h1>
 
-    <div style="width: 526px;">
+    <center>
         <nvd3-pie-chart
+        margin="{left:0,top:0,bottom:0,right:0}"
+        tooltips="true"
         data="data.candidates"
         class="donut-chart"
-        showLabels="true"
+        showLabels="false"
         x="xFunction()"
         y="yFunction()"
+        width="200"
+        height="200"
         donut="true"
-        donutRatio=".1"
-        donutLabelsOutside="true"
+        donutRatio=".3"
+        donutLabelsOutside="false"
+        labelType="percent"
+        color="color()"
         objectequality="true"
-        transitionduration="1000">
-          <svg height="300"></svg>
+        transitionduration="800">
+          <svg height="200" ></svg>
         </nvd3-pie-chart>
-    </div>
+    </center>
 
   </div>
   <div class="col">
@@ -85,6 +91,9 @@
   </nvd3-pie-chart>
 
   http://4waisenkinder.de/blog/2013/09/28/using-gradient-and-shadows-with-d3-dot-js/
+
+  http://www.fullscale.co/dangle/
   -->
+  <fs-donut bind="data.candidates"  />
 
 </div>

@@ -17,6 +17,20 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
             return d.name;
         }
     };
+    $scope.getIndexOfCandidate = function(candidate) {
+        return $scope.data.candidates.indexOf(candidate);
+    };
+    var colors = [
+        'url(#gradientForegroundPurple)',
+        'rgba(120,230,122,0.3)',
+        'red',
+        'blue'
+    ];
+    $scope.color = function() {
+      return function(d) {
+          return colors[$scope.getIndexOfCandidate(d.data)];
+      }
+    };
 
 
     $scope.data = {};

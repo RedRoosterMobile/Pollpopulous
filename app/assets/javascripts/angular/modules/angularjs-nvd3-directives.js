@@ -67,10 +67,12 @@
                     if ( attrs.y ) {
                         y = +attrs.y;
                     }
-                    element.append( svg );
+
                     g = document.createElementNS( svgNamespace, 'g' );
                     g.setAttribute( 'transform', 'translate(' + x + ',' + y + ')' );
+
                     svg.appendChild( g );
+                    //svg.appendChild(document.createElement( 'defs' ));
                     if ( attrs.labels ) {
                         labels = scope.$eval( attrs.labels );
                     }
@@ -795,7 +797,106 @@
         if ( d3.select( d3Select + ' svg' ).empty() ) {
             d3.select( d3Select ).append( 'svg' );
         }
+        // TODO: add shadow here
+        var svg = d3.select( d3Select + ' svg' );
+        applyDefs(svg);
+
+        // TODO: add styles here
+        // TODO: apply styles and filters
+        // .attr( 'filter', 'url(#dropshadow)' )
+
+
+
+        // paint chart
         d3.select( d3Select + ' svg' ).attr( 'viewBox', '0 0 ' + scope.width + ' ' + scope.height ).datum( data ).transition().duration( attrs.transitionduration === undefined ? 250 : +attrs.transitionduration ).call( chart );
+        applyStyles(d3Select);
+
+        // font selector
+        var text=d3.selectAll(d3Select+' svg .nv-label text');
+        // specify font
+        //text.attr('font-family', 'Raleway');
+
+        // dropshadow for the whole pie group .ng-pie
+        console.log('applying pie shadow');
+        console.log(d3.select(d3Select+' svg'));
+        var groupNode = d3.selectAll(d3Select+' svg .nv-pie')[0][1];
+        console.log(d3.select(groupNode).attr( 'filter', 'url(#dropshadow)' ));
+
+
+    }
+    function applyStyles(d3Select) {
+
+        // maybe just pass in as colors
+        var paths = d3.select(d3Select+' svg .nv-pie .nv-slice path');
+        //fill: url(#gradientForegroundPurple);
+        //paths.attr('fill','url(#gradientForegroundPurple)');
+
+
+    }
+
+    // TODO: turn into callback and pass it in to make it flexible
+    function applyDefs(svg) {
+
+        console.log('----------');
+
+        console.log(svg);
+        // filter stuff
+        /* For the shadow filter... */
+        // everything that will be referenced
+        // should be defined inside of a <defs> element ;)
+
+
+        //// GRADIENT
+        var defs = svg.append('defs');
+        var gradientForegroundPurple = defs.append( 'linearGradient' )
+            .attr( 'id', 'gradientForegroundPurple' )
+            .attr( 'x1', '0' )
+            .attr( 'x2', '0' )
+            .attr( 'y1', '0' )
+            .attr( 'y2', '1' );
+
+        gradientForegroundPurple.append( 'stop' )
+            .attr( 'class', 'purpleBackgroundStop2' )
+            .attr( 'offset', '0%' );
+
+        gradientForegroundPurple.append( 'stop' )
+            .attr( 'class', 'purpleBackgroundStop2' )
+            .attr( 'offset', '100%' );
+        //// END GRADIENT
+
+        var style = defs.append('style').attr('type','text/css');
+            //.text("@font-face {font-family:'Raleway';src: url('/Raleway.ttf') format('truetype');}");
+        window.style=style;
+
+
+        // append filter element
+        var filter = defs.append('filter')
+            .attr('id', 'dropshadow'); /// !!! important - define id to reference it later
+
+        // append gaussian blur to filter
+        filter.append('feGaussianBlur')
+            .attr('in', 'SourceAlpha')
+            .attr('stdDeviation', 3) // !!! important parameter - blur
+            .attr('result', 'blur');
+
+        // append offset filter to result of gaussion blur filter
+        filter.append('feOffset')
+            .attr('in', 'blur')
+            .attr('dx', 2) // !!! important parameter - x-offset
+            .attr('dy', 3) // !!! important parameter - y-offset
+            .attr('result', 'offsetBlur');
+
+        // merge result with original image
+        var feMerge = filter.append('feMerge');
+
+        // first layer result of blur and offset
+        feMerge.append('feMergeNode')
+            .attr('in", "offsetBlur');
+
+        // original image on top
+        feMerge.append('feMergeNode')
+            .attr('in', 'SourceGraphic');
+    // end filter stuff
     }
 
     function updateDimensions( scope, attrs, element, chart ) {
@@ -1838,6 +1939,7 @@
                             }
                             nv.addGraph( {
                                 generate: function () {
+                                    console.log('adding graph--------');
                                     initializeMargin( scope, attrs );
                                     var chart = nv.models.pieChart().x( attrs.x === undefined ? function ( d ) {
                                         return d[ 0 ];
@@ -1852,6 +1954,7 @@
                                     scope.d3Call( data, chart );
                                     nv.utils.windowResize( chart.update );
                                     scope.chart = chart;
+
                                     return chart;
                                 },
                                 callback: attrs.callback === undefined ? null : scope.callback()

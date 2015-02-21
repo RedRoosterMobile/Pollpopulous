@@ -783,32 +783,32 @@
     }
 
     function checkElementID( scope, attrs, element, chart, data ) {
-        configureXaxis(chart, scope, attrs);
-        configureX2axis(chart, scope, attrs);
-        configureYaxis(chart, scope, attrs);
-        configureY1axis(chart, scope, attrs);
-        configureY2axis(chart, scope, attrs);
-        configureLegend(chart, scope, attrs);
-        processEvents(chart, scope);
-        var d3Select = getD3Selector(attrs, element);
-        if (angular.isArray(data) && data.length === 0) {
-            d3.select(d3Select + ' svg').remove();
+        configureXaxis( chart, scope, attrs );
+        configureX2axis( chart, scope, attrs );
+        configureYaxis( chart, scope, attrs );
+        configureY1axis( chart, scope, attrs );
+        configureY2axis( chart, scope, attrs );
+        configureLegend( chart, scope, attrs );
+        processEvents( chart, scope );
+        var d3Select = getD3Selector( attrs, element );
+        if ( angular.isArray( data ) && data.length === 0 ) {
+            d3.select( d3Select + ' svg' ).remove();
         }
-        if (d3.select(d3Select + ' svg').empty()) {
-            d3.select(d3Select).append('svg');
+        if ( d3.select( d3Select + ' svg' ).empty() ) {
+            d3.select( d3Select ).append( 'svg' );
         }
 
-        // TODO: add shadow here
-        var svg = d3.select(d3Select + ' svg');
+        var svg = d3.select( d3Select + ' svg' );
         applyDefs(svg);
-        // TODO: add styles here
         // paint chart
-        d3.select(d3Select + ' svg').attr('viewBox', '0 0 ' + scope.width + ' ' + scope.height).datum(data).transition().duration(attrs.transitionduration === undefined ? 250 : +attrs.transitionduration).call(chart);
-
-        // font selector
-        //var text=d3.selectAll(d3Select+' svg .nv-label text');
-        // specify font
-        //text.attr('font-family', 'Raleway');
+        d3.select( d3Select + ' svg' ).attr( 'viewBox', '0 0 ' + scope.width + ' ' + scope.height ).datum( data ).transition().duration( attrs.transitionduration === undefined ? 250 : +attrs.transitionduration ).call( chart );
+        // add shadow here
+        applyStyles(d3Select);
+    }
+    // TODO: turn into callback and pass it in to make it flexible
+    function applyStyles(d3Select) {
+        var groupNode = d3.selectAll(d3Select+' svg .nv-pie')[0][1];
+        console.log(d3.select(groupNode).attr( 'filter', 'url(#dropshadow)' ));
     }
 
     // TODO: turn into callback and pass it in to make it flexible

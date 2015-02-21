@@ -4,6 +4,7 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
 
     $scope.sfxBlip = $ngAudio.load("/blip.wav");
     $scope.sfxCoin = $ngAudio.load("/coin.wav");
+    $scope.sfxOverAndOut = $ngAudio.load("/overandout_long.wav");
     $scope.xFunction = function(){
         return function(d) {
             return d.name;
@@ -23,12 +24,7 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
         return $scope.data.candidates.indexOf(candidate);
     };
     $scope.defs= function(svg) {
-        console.log('defs!!!!!!!!!!!!!!!!!!!!!');
-        //console.log(svg);
-        return function(d){
-            console.log('d');
-            console.log(d);
-        }
+        console.log(svg);
     };
     $scope.alerts = [
        /* { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
@@ -36,6 +32,7 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
     ];
     $scope.closeAlert = function(index) {
         $scope.alerts.splice(index, 1);
+        $scope.sfxOverAndOut.play();
     };
 
     var colors = [
@@ -85,6 +82,7 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
         });
         channel.bind('revoked_vote', function(data) {
             console.log('revoked vote');
+            var smash = false;
             for (var i=0;i<$scope.data.candidates.length;i++) {
                 if ($scope.data.candidates[i].id==data.candidate_id) {
                     for (var j=0;j<$scope.data.candidates[i].votes.length;j++) {
@@ -96,10 +94,18 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
                                 console.log($scope.data.candidates[i].votes[j]);
                                 // kick it out
                                 $scope.data.candidates[i].votes.splice(j, 1);
+
+                                // end loop
+                                //j=$scope.data.candidates[i].length+1;
+                                smash = true;
+                                //i=$scope.data.candidates.length+1;
                             });
                         }
+                        if (smash) break
+
                     }
                 }
+                if (smash) break
             }
 
         });
@@ -128,12 +134,10 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
             console.log('ws: failed');
             console.log(data);
             $scope.$apply(function(){
-                $scope.alerts.push(
-                    {
+                $scope.alerts.push({
                         msg: data.message,
                         type: 'warning'
-                    }
-                );
+                });
             });
             $scope.sfxBlip.play();
             // trigger leave animation after certain time
@@ -171,12 +175,13 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
                         url: url[0]
                     };
                     dispatcher.trigger('poll.revoke_vote', message, wsSuccess, wsFailure);
-                    return;
+                    // end loop
+                    i=option.votes.length+1;
                 }
             }
-            $timeout(function(){
-                wsFailure({message: 'Not your vote'});
-            });
+            //$timeout(function(){
+            //    wsFailure({message: 'Not your vote'});
+            //});
         };
         $scope.addOption = function() {
             var title = $scope.data.optionName;

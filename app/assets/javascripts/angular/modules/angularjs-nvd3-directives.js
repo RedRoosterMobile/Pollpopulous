@@ -800,8 +800,11 @@
 
         var svg = d3.select( d3Select + ' svg' );
         applyDefs(svg);
+        console.log('scoooooooooope');
+        console.log(scope);
         // how to pass an argument?
         //scope.defs(svg);
+        //attrs.defs(svg);
         // paint chart
         d3.select( d3Select + ' svg' ).attr( 'viewBox', '0 0 ' + scope.width + ' ' + scope.height ).datum( data ).transition().duration( attrs.transitionduration === undefined ? 250 : +attrs.transitionduration ).call( chart );
         // add shadow here

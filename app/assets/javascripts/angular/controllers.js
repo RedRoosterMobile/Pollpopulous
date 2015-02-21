@@ -179,6 +179,7 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
         };
         $scope.revokeVote = function(option) {
             console.log('clicked revoke');
+            var notYours=true;
             for (var i=0;i<option.votes.length;i++) {
                 console.log(option.votes[i].nickname);
                 console.log($scope.data.nickname);
@@ -192,12 +193,19 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
                     };
                     dispatcher.trigger('poll.revoke_vote', message, wsSuccess, wsFailure);
                     // end loop
+                    notYours=false;
                     i=option.votes.length+1;
                 }
             }
-            //$timeout(function(){
-            //    wsFailure({message: 'Not your vote'});
-            //});
+            if (notYours && option.votes.length > 0) {
+                $timeout(function () {
+                    wsFailure({message: 'Not your vote'});
+                });
+            }else if(option.votes.length == 0) {
+                $timeout(function () {
+                    wsFailure({message: 'Ever heard of negative votes?'});
+                });
+            }
         };
         $scope.addOption = function() {
             var title = $scope.data.optionName;

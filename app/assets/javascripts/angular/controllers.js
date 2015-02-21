@@ -171,8 +171,12 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
                         url: url[0]
                     };
                     dispatcher.trigger('poll.revoke_vote', message, wsSuccess, wsFailure);
+                    return;
                 }
             }
+            $timeout(function(){
+                wsFailure({message: 'Not your vote'});
+            });
         };
         $scope.addOption = function() {
             var title = $scope.data.optionName;

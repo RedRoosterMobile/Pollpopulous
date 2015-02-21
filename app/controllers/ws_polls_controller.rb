@@ -42,19 +42,15 @@ class WsPollsController < WebsocketRails::BaseController
     vote_id = message[:vote_id]
     candidate_id = message[:candidate_id]
 
-    vote = Vote.where(id: vote_id)
+    vote = Vote.where(id: vote_id, nickname: nickname)
+
     if vote.first
-        if vote.first.nickname==nickname
-          vote_attribs=vote.first.attributes
-          trigger_success ({message: 'vote revoked', attr: vote_attribs})
-          vote.first.delete
-          # trigger update of all channel members
-          WebsocketRails[@poll.url.to_sym].trigger(:revoked_vote, {candidate_id: candidate_id, vote: vote_attribs})
-        else
-          trigger_failure ({message: 'this was not your vote'})
-        end
+      trigger_success ({message: 'vote revoked', attr: vote.first.attributes})
+      vote.first.delete
+      # trigger update of all channel members
+      WebsocketRails[@poll.url.to_sym].trigger(:revoked_vote, {candidate_id: candidate_id, vote: vote.first.attributes})
     else
-      trigger_failure ({message: 'vote not found'})
+      trigger_failure ({message: 'not your vote'})
     end
   end
 

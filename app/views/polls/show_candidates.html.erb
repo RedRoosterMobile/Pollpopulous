@@ -1,29 +1,39 @@
 <div class="Pollpopulous" ng-controller="mainController"  ng-init="init(<%= @candidates %>,<%= @poll_id %>)">
 <div class="row">
   <div class="well">
-    <h1><%= @title %></h1>
+    <div class="row">
+    <div class="col-md-2" class="chart-holder">
+      <nvd3-pie-chart
+      margin="{left:0,top:0,bottom:0,right:0}"
+      tooltips="true"
+      data="data.candidates"
+      class="donut-chart"
+      showLabels="false"
+      x="xFunction()"
+      y="yFunction()"
+      width="200"
+      height="200"
+      donut="true"
+      donutRatio=".3"
+      donutLabelsOutside="false"
+      labelType="percent"
+      color="color()"
+      objectequality="true"
+      transitionduration="500">
+        <svg height="200" ></svg>
+      </nvd3-pie-chart>
 
-    <center>
-        <nvd3-pie-chart
-        margin="{left:0,top:0,bottom:0,right:0}"
-        tooltips="true"
-        data="data.candidates"
-        class="donut-chart"
-        showLabels="false"
-        x="xFunction()"
-        y="yFunction()"
-        width="200"
-        height="200"
-        donut="true"
-        donutRatio=".3"
-        donutLabelsOutside="false"
-        labelType="percent"
-        color="color()"
-        objectequality="true"
-        transitionduration="800">
-          <svg height="200" ></svg>
-        </nvd3-pie-chart>
-    </center>
+
+    </div>
+      <div class="col-md-1">
+        <h1><%= @title %></h1>
+      </div>
+    </div>
+
+
+    <!--<div class="chart-holder">
+
+    </div>-->
 
   </div>
   <div class="col">

@@ -22,6 +22,7 @@ controllers.controller('mainController',['$scope','$http','$timeout',function($s
     };
     var colors = [
         'url(#gradientForegroundPurple)',
+        'url(#gradientForegroundRed)',
         'rgba(120,230,122,0.3)',
         'red',
         'blue'

@@ -783,63 +783,36 @@
     }
 
     function checkElementID( scope, attrs, element, chart, data ) {
-        configureXaxis( chart, scope, attrs );
-        configureX2axis( chart, scope, attrs );
-        configureYaxis( chart, scope, attrs );
-        configureY1axis( chart, scope, attrs );
-        configureY2axis( chart, scope, attrs );
-        configureLegend( chart, scope, attrs );
-        processEvents( chart, scope );
-        var d3Select = getD3Selector( attrs, element );
-        if ( angular.isArray( data ) && data.length === 0 ) {
-            d3.select( d3Select + ' svg' ).remove();
+        configureXaxis(chart, scope, attrs);
+        configureX2axis(chart, scope, attrs);
+        configureYaxis(chart, scope, attrs);
+        configureY1axis(chart, scope, attrs);
+        configureY2axis(chart, scope, attrs);
+        configureLegend(chart, scope, attrs);
+        processEvents(chart, scope);
+        var d3Select = getD3Selector(attrs, element);
+        if (angular.isArray(data) && data.length === 0) {
+            d3.select(d3Select + ' svg').remove();
         }
-        if ( d3.select( d3Select + ' svg' ).empty() ) {
-            d3.select( d3Select ).append( 'svg' );
+        if (d3.select(d3Select + ' svg').empty()) {
+            d3.select(d3Select).append('svg');
         }
+
         // TODO: add shadow here
-        var svg = d3.select( d3Select + ' svg' );
+        var svg = d3.select(d3Select + ' svg');
         applyDefs(svg);
-
         // TODO: add styles here
-        // TODO: apply styles and filters
-        // .attr( 'filter', 'url(#dropshadow)' )
-
-
-
         // paint chart
-        d3.select( d3Select + ' svg' ).attr( 'viewBox', '0 0 ' + scope.width + ' ' + scope.height ).datum( data ).transition().duration( attrs.transitionduration === undefined ? 250 : +attrs.transitionduration ).call( chart );
-        applyStyles(d3Select);
+        d3.select(d3Select + ' svg').attr('viewBox', '0 0 ' + scope.width + ' ' + scope.height).datum(data).transition().duration(attrs.transitionduration === undefined ? 250 : +attrs.transitionduration).call(chart);
 
         // font selector
-        var text=d3.selectAll(d3Select+' svg .nv-label text');
+        //var text=d3.selectAll(d3Select+' svg .nv-label text');
         // specify font
         //text.attr('font-family', 'Raleway');
-
-        // dropshadow for the whole pie group .ng-pie
-        console.log('applying pie shadow');
-        console.log(d3.select(d3Select+' svg'));
-        var groupNode = d3.selectAll(d3Select+' svg .nv-pie')[0][1];
-        console.log(d3.select(groupNode).attr( 'filter', 'url(#dropshadow)' ));
-
-
-    }
-    function applyStyles(d3Select) {
-
-        // maybe just pass in as colors
-        var paths = d3.select(d3Select+' svg .nv-pie .nv-slice path');
-        //fill: url(#gradientForegroundPurple);
-        //paths.attr('fill','url(#gradientForegroundPurple)');
-
-
     }
 
     // TODO: turn into callback and pass it in to make it flexible
     function applyDefs(svg) {
-
-        console.log('----------');
-
-        console.log(svg);
         // filter stuff
         /* For the shadow filter... */
         // everything that will be referenced
@@ -856,17 +829,33 @@
             .attr( 'y2', '1' );
 
         gradientForegroundPurple.append( 'stop' )
-            .attr( 'class', 'purpleBackgroundStop2' )
+            .attr( 'class', 'purpleBackgroundStop1' )
             .attr( 'offset', '0%' );
 
         gradientForegroundPurple.append( 'stop' )
             .attr( 'class', 'purpleBackgroundStop2' )
             .attr( 'offset', '100%' );
+
+
+        var gradientForegroundRed = defs.append( 'linearGradient' )
+            .attr( 'id', 'gradientForegroundRed' )
+            .attr( 'x1', '0' )
+            .attr( 'x2', '0' )
+            .attr( 'y1', '0' )
+            .attr( 'y2', '1' );
+
+        gradientForegroundRed.append( 'stop' )
+            .attr( 'class', 'redForegroundStop1' )
+            .attr( 'offset', '0%' );
+
+        gradientForegroundRed.append( 'stop' )
+            .attr( 'class', 'redForegroundStop2' )
+            .attr( 'offset', '100%' );
         //// END GRADIENT
 
-        var style = defs.append('style').attr('type','text/css');
+        // fixme: not working
+        //var style = defs.append('style').attr('type','text/css');
             //.text("@font-face {font-family:'Raleway';src: url('/Raleway.ttf') format('truetype');}");
-        window.style=style;
 
 
         // append filter element

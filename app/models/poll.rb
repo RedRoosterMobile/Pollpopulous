@@ -8,7 +8,6 @@ class Poll < ActiveRecord::Base
   private
 
   def destroy_candidates
-    puts 'destroy candidates'
     candidates.destroy_all
   end
 

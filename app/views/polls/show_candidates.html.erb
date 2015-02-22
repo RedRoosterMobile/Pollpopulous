@@ -2,7 +2,7 @@
 <div class="row">
   <div class="well">
     <div class="row">
-    <div class="col-md-2" class="chart-holder">
+    <div class="col-md-2">
       <nvd3-pie-chart
       margin="{left:0,top:0,bottom:0,right:0}"
       tooltips="true"
@@ -11,8 +11,8 @@
       showLabels="false"
       x="xFunction()"
       y="yFunction()"
-      width="200"
-      height="200"
+      width="300"
+      height="300"
       donut="true"
       donutRatio=".3"
       donutLabelsOutside="false"
@@ -21,7 +21,7 @@
       defs="defs"
       objectequality="true"
       transitionduration="500">
-        <svg height="200" ></svg>
+        <svg height="300" ></svg>
       </nvd3-pie-chart>
 
 
@@ -29,24 +29,19 @@
       <div class="col-md-2">
         <h1><%= @title %></h1>
       </div>
-      <div class="col-md-8">
-        <div class="col">
-          <form id="add_candidate_form" role="form">
+      <div class="col-md-4">
+        <div class="row">
+          <form id="add_candidate_form" ng-submit="addOption()"role="form">
             <div class="form-group">
               <label for="candidate_title">Option</label>
-              <input type="text" class="form-control" id="candidate_title"  ng-model="data.optionName" name="location" placeholder="Persian Pizza Prince">
+              <input type="text" class="form-control" id="candidate_title" ng-model="data.optionName" name="location" placeholder="Persian Pizza Prince">
+              <label for="nickname">Name</label>
+              <input type="text" ng-disabled="{{data.knownSender}}" class="form-control" id="nickname" name="nickname" placeholder="your name" ng-model="data.nickname">
             </div>
-            <button type="submit"  class="btn btn-default" ng-click="addOption()"  >Add new option</button>
+            <button type="submit" class="btn btn-default" >Add new option</button>
           </form>
         </div>
-        <form id="nickname_form" role="form">
-          <div class="form-group">
-            <label for="nickname">Name</label>
-            <input type="text" ng-disabled="{{data.knownSender}}" class="form-control" id="nickname" name="nickname" placeholder="your name"  ng-model="data.nickname">
-          </div>
-        </form>
       </div>
-
     </div>
     <!--<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>-->
     <mm-alert-box></mm-alert-box>
@@ -59,6 +54,10 @@
   </div>
 
 </div>
+
+
+<!--
+
 <table class="table table-striped">
   <thead>
   <tr>
@@ -75,42 +74,34 @@
       <div class="btn-group">
         <a class="btn btn-primary vote" ng-click="vote(option.id)" >Vote here</a>
         <a class="btn btn-default" ng-click="revokeVote(option,$index)" >Revoke Vote</a>
-        <!--<a class="btn btn-primary" ng-click="removeOption(option.id)" >Remove</a>-->
+
       </div>
     </td>
   </tr>
   </tbody>
 </table>
-  <!--<nvd3-pie-chart
-  data="exampleData"
-  id="exampleId"
-  margin="{left:0,top:0,bottom:0,right:0}"
-  x="xFunction()"
-  y="yFunction()"
-  showLabels="true"
-  pieLabelsOutside="false"
-  showValues="true"
-  labelType="percent">
-    <svg></svg>
-  </nvd3-pie-chart>
-  <nvd3-pie-chart
-  id="exampleId"
-  data="exampleData"
-  x="xFunction()"
-  y="yFunction()"
-  width="{{ width }}"
-  height="{{ height }}"
-  showLabels="true"
-  pieLabelsOutside="false"
-  showValues="true"
-  labelType="percent">
-    <svg></svg>
-  </nvd3-pie-chart>
 
-  http://4waisenkinder.de/blog/2013/09/28/using-gradient-and-shadows-with-d3-dot-js/
+-->
 
-  http://www.fullscale.co/dangle/
-  -->
-  <fs-donut bind="data.candidates"  />
+
+
+  <div class="list-group">
+
+    <div class="list-group-item " ng-repeat="option in data.candidates">
+      <div class="row">
+        <div class="col-sm-9">
+          <h4 class="list-group-item-heading">{{option.name}}</h4>
+          <p class="list-group-item-text">Votes: {{option.votes.length}}</p>
+        </div>
+        <div class="col-sm-3">
+          <div class="btn-group clearfix" style="float:right;">
+            <a class="btn btn-primary btn-xs vote" ng-click="vote(option.id)" >Vote here</a>
+            <a class="btn btn-default btn-xs" ng-click="revokeVote(option,$index)" >Revoke Vote</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 
 </div>

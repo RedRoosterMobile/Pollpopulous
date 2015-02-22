@@ -36,7 +36,7 @@
               <label for="candidate_title">Option</label>
               <input type="text" class="form-control" id="candidate_title" ng-model="data.optionName" name="location" placeholder="Persian Pizza Prince">
               <label for="nickname">Name</label>
-              <input type="text" ng-disabled="{{data.knownSender}}" class="form-control" id="nickname" name="nickname" placeholder="your name" ng-model="data.nickname">
+              <input type="text" ng-disabled="data.knownSender" class="form-control" id="nickname" name="nickname" placeholder="your name" ng-model="data.nickname">
             </div>
             <button type="submit" class="btn btn-default" >Add new option</button>
           </form>

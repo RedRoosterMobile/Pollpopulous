@@ -75,6 +75,7 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
         var storedNickname = localStorage.getItem('nickname');
         if (storedNickname && storedNickname.length > 0) {
             $scope.data.nickname = storedNickname;
+            $scope.data.knownSender=true;
             console.log('store nickname' + storedNickname);
         }
 

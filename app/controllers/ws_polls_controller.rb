@@ -105,7 +105,11 @@ class WsPollsController < WebsocketRails::BaseController
   end
 
   def set_vote_by_nickname
-    @vote = @poll.votes.find_by_nickname(message[:nickname])
+    if @poll.votes
+      @vote = @poll.votes.find_by_nickname(message[:nickname])
+    else
+      @vote=nil
+    end
   end
 
 

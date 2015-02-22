@@ -1,5 +1,7 @@
 @import '_mixins';
 
+
+/*todo: split this file up*/
 .donut-chart {
   @include box-shadow(3px, 3px, 10px, #666);
 }
@@ -114,12 +116,6 @@ $sort-animation-speed: 0.2s;
   &.ng-move-active {
     /*background: rgba(255, 255, 255, 0.8);*/
   }
-  &.ng-leave {
-    background: green;
-  }
-  &.ng-enter {
-    background: red;
-  }
 }
 span.glyphicon-star-empty {
   @include transition($sort-animation-speed);
@@ -128,7 +124,7 @@ span.glyphicon-star-empty {
   &.ng-enter {
     @include translate(100px,0px);
     opacity:1;
-    color: green;
+    color: lightgreen;
   }
   &.ng-enter.ng-enter-active {
     @include translate(0px,0px);
@@ -140,45 +136,3 @@ span.glyphicon-star-empty {
     opacity:0;
   }
 }
-
-
-/*
-.sort-animation {
-  -webkit-transition: all $sort-animation-speed ease-in-out;
-  -moz-transition: all $sort-animation-speed ease-in-out;
-  -o-transition: all $sort-animation-speed ease-in-out;
-  transition: all $sort-animation-speed ease-in-out;
-
-  &.ng-enter {
-    -webkit-transition: $sort-animation-speed;
-    transition: $sort-animation-speed;
-
-    margin-left: 100%;
-  }
-
-  &.ng-enter-active {
-    margin-left: 0;
-  }
-
-  &.ng-leave {
-    -webkit-transition: $sort-animation-speed;
-    transition: $sort-animation-speed;
-
-    margin-left: 0;
-  }
-
-  &.ng-leave-active {
-    margin-left: 100%;
-  }
-
-  &.ng-move {
-    -webkit-transition: $sort-animation-speed;
-    transition: $sort-animation-speed;
-    background: gold;
-  }
-
-  &.ng-move-active {
-    background: #fff;
-  }
-
-}*/

@@ -26,9 +26,27 @@
 
 
     </div>
-      <div class="col-md-1">
+      <div class="col-md-2">
         <h1><%= @title %></h1>
       </div>
+      <div class="col-md-8">
+        <div class="col">
+          <form id="add_candidate_form" role="form">
+            <div class="form-group">
+              <label for="candidate_title">Option</label>
+              <input type="text" class="form-control" id="candidate_title"  ng-model="data.optionName" name="location" placeholder="Persian Pizza Prince">
+            </div>
+            <button type="submit"  class="btn btn-default" ng-click="addOption()"  >Add new option</button>
+          </form>
+        </div>
+        <form id="nickname_form" role="form">
+          <div class="form-group">
+            <label for="nickname">Name</label>
+            <input type="text" ng-disabled="{{data.knownSender}}" class="form-control" id="nickname" name="nickname" placeholder="your name"  ng-model="data.nickname">
+          </div>
+        </form>
+      </div>
+
     </div>
     <!--<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>-->
     <mm-alert-box></mm-alert-box>
@@ -39,21 +57,7 @@
     </div>-->
 
   </div>
-  <div class="col">
-    <form id="add_candidate_form" role="form">
-      <div class="form-group">
-        <label for="candidate_title">Option</label>
-        <input type="text" class="form-control" id="candidate_title"  ng-model="data.optionName" name="location" placeholder="Persian Pizza Prince">
-      </div>
-      <button type="submit"  class="btn btn-default" ng-click="addOption()"  >Add new option</button>
-    </form>
-  </div>
-  <form id="nickname_form" role="form">
-    <div class="form-group">
-      <label for="nickname">Name</label>
-      <input type="text" ng-disabled="{{data.knownSender}}" class="form-control" id="nickname" name="nickname" placeholder="your name"  ng-model="data.nickname">
-    </div>
-  </form>
+
 </div>
 <table class="table table-striped">
   <thead>

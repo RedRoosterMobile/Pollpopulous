@@ -42,7 +42,7 @@ directives.directive('mmGiphy',['$timeout', function ($timeout) {
                 scope.keywords = ['funny','cat'];
 
             var keywordsQuery = scope.keywords.join('+');
-            scope.giphyUrl = "http://api.giphy.com/v1/gifs/search?q="+keywordsQuery+"&api_key=dc6zaTOxFJmzC";
+            scope.giphyUrl = "https://api.giphy.com/v1/gifs/search?q="+keywordsQuery+"&api_key=dc6zaTOxFJmzC";
             $.get( scope.giphyUrl, function( data ) {
                 var results = data.data;
                 playing=true;

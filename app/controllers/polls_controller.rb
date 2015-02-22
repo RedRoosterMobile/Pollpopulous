@@ -23,8 +23,6 @@ class PollsController < ApplicationController
     #todo: show screen to add candidates and vote for them
   end
 
-
-
   # POST /polls
   # POST /polls.json
   def create
@@ -71,12 +69,6 @@ class PollsController < ApplicationController
     @poll_id = @poll.id
     #@votes = @poll.votes
   end
-
-  #def broadcast_message_to_channel(channel, event, data)
-  #  result = WebsocketRails[channel].trigger(event, data)
-  #  puts '###############'
-  #  puts result
-  #end
 
   private
     # Use callbacks to share common setup or constraints between actions.

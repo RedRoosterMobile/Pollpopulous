@@ -112,10 +112,8 @@ $sort-animation-speed: 0.2s;
     background: rgba(255, 215, 0, 0.8);
   }
   &.ng-move-active {
-    background: rgba(255, 255, 255, 0.8);
+    /*background: rgba(255, 255, 255, 0.8);*/
   }
-
-
   &.ng-leave {
     background: green;
   }
@@ -126,16 +124,19 @@ $sort-animation-speed: 0.2s;
 span.glyphicon-star-empty {
   @include transition($sort-animation-speed);
   opacity: 1;
-
+  @include animation-timing-function(ease-in);
   &.ng-enter {
+    @include translate(100px,0px);
     opacity:1;
     color: green;
   }
   &.ng-enter.ng-enter-active {
+    @include translate(0px,0px);
     opacity:1;
     color: lightblue;
   }
   &.ng-leave {
+    @include translate(-100px,0px);
     opacity:0;
   }
 }

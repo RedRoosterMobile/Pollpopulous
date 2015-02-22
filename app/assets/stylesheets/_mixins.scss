@@ -1,6 +1,9 @@
 
 /*TODO: check http://bourbon.io/ gem */
 
+
+/*http://codepen.io/sawmac/pen/rjHFd*/
+
 @mixin box-shadow($top, $left, $blur, $color, $inset: false) {
   @if $inset {
     -webkit-box-shadow:inset $top $left $blur $color;
@@ -57,6 +60,17 @@
   @keyframes #{$animationName} {
     @content;
   }
+}
+
+
+/*
+animation-timing-function: linear|ease|ease-in|ease-out|cubic-bezier(n,n,n,n)|initial|inherit;
+*/
+@mixin animation-timing-function($timing...) {
+  -o-animation-timing-function: $timing;
+  -moz-animation-timing-function: $timing;
+  -webkit-animation-timing-function: $timing;
+  animation-timing-function: $timing;
 }
 /* http://codepen.io/sawmac/pen/qGudy */
 @mixin transform($transforms) {

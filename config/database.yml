@@ -3,6 +3,7 @@
 #
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
+# http://www.gotealeaf.com/blog/how-to-install-postgresql-on-a-mac
 #
 default: &default
   adapter: sqlite3
@@ -22,7 +23,10 @@ test: &test
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  database: my_database_production
+  pool: 5
+  timeout: 5000
 
 cucumber:
   <<: *test

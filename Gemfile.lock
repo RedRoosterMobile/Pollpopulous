@@ -116,6 +116,7 @@ GEM
     multi_test (0.1.1)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
+    pg (0.18.1)
     phantomjs (1.9.7.1)
     poltergeist (1.5.1)
       capybara (~> 2.1)
@@ -234,6 +235,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   minitest
+  pg
   poltergeist
   pry
   rails (= 4.1.0)

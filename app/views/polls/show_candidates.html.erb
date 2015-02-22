@@ -91,7 +91,8 @@
       <div class="row">
         <div class="col-sm-9">
           <h4 class="list-group-item-heading">{{option.name}}</h4>
-          <p class="list-group-item-text">Votes: {{option.votes.length}}</p>
+          <p class="list-group-item-text">Votes: <span ng-repeat="vote in option.votes" class="glyphicon glyphicon-star-empty"></span></p>
+
         </div>
         <div class="col-sm-3">
           <div class="btn-group clearfix" style="float:right;">

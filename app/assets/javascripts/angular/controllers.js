@@ -36,11 +36,18 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
     };
 
     var colors = [
+        // fixme: gradients need to be known in nvd3-directive
         'url(#gradientForegroundPurple)',
         'url(#gradientForegroundRed)',
+        // TODO: proper colors or gradients
         'rgba(120,230,122,0.3)',
-        'red',
-        'blue'
+        'gold',
+        'purple',
+        'darkBlue',
+        'lightBrown',
+        'lightRed',
+        'darkOrange'
+
     ];
     $scope.color = function() {
       return function(d) {

@@ -87,7 +87,7 @@
 
   <div class="list-group">
 
-    <div class="list-group-item " ng-repeat="option in data.candidates">
+    <div class="list-group-item " ng-repeat="option in data.candidates | orderBy: '-votes.length' ">
       <div class="row">
         <div class="col-sm-9">
           <h4 class="list-group-item-heading">{{option.name}}</h4>

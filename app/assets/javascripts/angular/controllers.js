@@ -62,9 +62,10 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
     var channel = dispatcher.subscribe(url[0]);
 
     $scope.init = function(msg,poll_id){
+        $scope.data.keywords = ['funny','cat'];
         $scope.data.nickname='';
         console.log('init called');
-        console.log(msg);
+        //console.log(msg);
 
         $scope.data.knownSender = false;
         $scope.data.optionName = '';
@@ -76,7 +77,7 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
         if (storedNickname && storedNickname.length > 0) {
             $scope.data.nickname = storedNickname;
             $scope.data.knownSender=true;
-            console.log('store nickname' + storedNickname);
+            //console.log('store nickname' + storedNickname);
         }
 
 
@@ -90,52 +91,30 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
         });
         channel.bind('revoked_vote', function(data) {
             console.log('revoked vote-----------------');
-
-            console.log(data);
-            // fixme optimize this!
-
             var smash = false;
             for (var i=0;i<$scope.data.candidates.length;i++) {
                 if ($scope.data.candidates[i].id==data.candidate_id) {
-
-
-
-
                     for (var j=0;j<$scope.data.candidates[i].votes.length;j++) {
-
                         var isSameName=$scope.data.candidates[i].votes[j].nickname==data.vote.nickname;
                         var isSameId=$scope.data.candidates[i].votes[j].id==data.vote.id;
-
-
-                        if (isSameName) {
+                        if (isSameName && isSameId) {
                             //unset
-                            console.log($scope.data.candidates[i].votes[j]);
+                            //console.log($scope.data.candidates[i].votes[j]);
                             $scope.$apply(function() {
-                                // fixme: splice exact one
-                                //ah=$scope.data.candidates[i].votes[j];
                                 // kick it out
                                 var spliced=$scope.data.candidates[i].votes.splice(j, 1);
-                                console.log(spliced);
-                                console.log(spliced);
-                                // end loop
-                                //j=$scope.data.candidates[i].length+1;
                                 smash = true;
-                                //i=$scope.data.candidates.length+1;
                             });
                         }
                         if (smash) break
-
                     }
                 }
                 if (smash) break
             }
-
         });
         channel.bind('new_vote', function(data) {
             console.log('new_vote');
             for (var i=0;i<$scope.data.candidates.length;i++) {
-                console.log('data.cani_id '+data.candidate_id);
-                console.log('scope.data.candi_id '+$scope.data.candidates[i].id);
                 if ($scope.data.candidates[i].id==data.candidate_id) {
                     $scope.$apply(function() {
                         // update goes here
@@ -174,9 +153,6 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
 
         $scope.vote = function(option_id) {
           console.log('clicked vote');
-            console.log(option_id);
-            console.log($scope.data.nickname);
-            console.log($scope.data.poll_id);
             var message = {
                 nickname: $scope.data.nickname,
                 candidate_id: option_id ,
@@ -189,8 +165,6 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
             console.log('clicked revoke');
             var notYours=true;
             for (var i=0;i<option.votes.length;i++) {
-                console.log(option.votes[i].nickname);
-                console.log($scope.data.nickname);
                 if (option.votes[i].nickname==$scope.data.nickname  ) {
                     var message = {
                         nickname: $scope.data.nickname,
@@ -218,8 +192,6 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
         $scope.addOption = function() {
             var title = $scope.data.optionName;
             var nickname =$scope.data.nickname;
-            console.log(title);
-            console.log(nickname);
             if (nickname != '' && title != '') {
                 var message = { url: url,poll_id: $scope.data.poll_id, name: title };
                 dispatcher.trigger('poll.add_option', message, wsSuccess, wsFailure);

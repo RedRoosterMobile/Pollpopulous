@@ -18,7 +18,7 @@ class CleanupWorker
     end
 
     puts LOG_ID+'polls older than 60 days in general'
-    old_polls =Poll.where('updated_at < ?',1.second.ago)
+    old_polls =Poll.where('updated_at < ?',60.days.ago)
     if old_polls.length > 0
       old_polls.each do |poll|
         poll.destroy

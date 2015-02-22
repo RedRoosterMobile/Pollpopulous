@@ -11,19 +11,15 @@ directives.directive('mmAlertBox',[ function () {
 directives.directive('mmGiphy',['$timeout', function ($timeout) {
 
     var gifResults;
-
     var playing;
-
-
     var startCount=0;
+
     var link = function ( scope, element, attrs ) {
-        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@');
-
-
         scope.setGif = function(url) {
             var img = new Image();
             img.onload = function() {
-                var link=$('<a title="There\'ll be cats!">');
+
+                var link=$('<a title="'+(scope.title?scope.title:"There'll be cats!")+'">');
                 element.children().first().html('').append(link.append(img)[0]);
                 startCount++;
 
@@ -33,7 +29,7 @@ directives.directive('mmGiphy',['$timeout', function ($timeout) {
                     }
                     console.log('next cat');
                     scope.setGif(gifResults[startCount].images.downsized)
-                },3000);
+                },(scope.speedMs?scope.speedMs:3000));
 
             };
             img.className+=" img-responsive";
@@ -42,13 +38,14 @@ directives.directive('mmGiphy',['$timeout', function ($timeout) {
 
 
         scope.startShow=function() {
-            playing=true;
+            if (!!scope.keywords)
+                scope.keywords = ['funny','cat'];
+
             var keywordsQuery = scope.keywords.join('+');
             scope.giphyUrl = "http://api.giphy.com/v1/gifs/search?q="+keywordsQuery+"&api_key=dc6zaTOxFJmzC";
             $.get( scope.giphyUrl, function( data ) {
                 var results = data.data;
-                console.log(results);
-
+                playing=true;
                 gifResults=results;
                 if (results && results.length>0)
                     scope.setGif(results[0].images.downsized);
@@ -60,12 +57,10 @@ directives.directive('mmGiphy',['$timeout', function ($timeout) {
         };
 
         element.click(function() {
-            console.log(scope.timeOut);
             if (playing)
                 scope.stopShow();
-            else {
+            else
                 scope.startShow();
-            }
         });
         $timeout(scope.startShow);
     };
@@ -73,7 +68,9 @@ directives.directive('mmGiphy',['$timeout', function ($timeout) {
     return {
         restrict: 'E',
         scope: {
-          keywords: '='
+            keywords: '=',
+            title: '@',
+            speedMs: '@'
         },
         link: link,
         template: '<div class="giphy-container polaroid-images"></div>'

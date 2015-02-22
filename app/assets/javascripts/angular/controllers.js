@@ -1,4 +1,4 @@
-var controllers = angular.module('Pollpopulous.controllers',['nvd3ChartDirectives','ngAudio']);
+var controllers = angular.module('Pollpopulous.controllers',['nvd3ChartDirectives','ngAudio','ngAnimate']);
 
 controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',function($scope,$http,$timeout,$ngAudio) {
 
@@ -77,12 +77,7 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
         if (storedNickname && storedNickname.length > 0) {
             $scope.data.nickname = storedNickname;
             $scope.data.knownSender=true;
-            //console.log('store nickname' + storedNickname);
         }
-
-
-
-
         // catch broadcasts on channel
         channel.bind('new_candidate', function(data) {
             $scope.$apply(function() {
@@ -98,11 +93,9 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
                         var isSameName=$scope.data.candidates[i].votes[j].nickname==data.vote.nickname;
                         var isSameId=$scope.data.candidates[i].votes[j].id==data.vote.id;
                         if (isSameName && isSameId) {
-                            //unset
-                            //console.log($scope.data.candidates[i].votes[j]);
                             $scope.$apply(function() {
                                 // kick it out
-                                var spliced=$scope.data.candidates[i].votes.splice(j, 1);
+                                $scope.data.candidates[i].votes.splice(j, 1);
                                 smash = true;
                             });
                         }
@@ -183,7 +176,7 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
                 $timeout(function () {
                     wsFailure({message: 'Not your vote'});
                 });
-            }else if(option.votes.length == 0) {
+            } else if(option.votes.length == 0) {
                 $timeout(function () {
                     wsFailure({message: 'Ever heard of negative votes?'});
                 });
@@ -197,8 +190,14 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
                 dispatcher.trigger('poll.add_option', message, wsSuccess, wsFailure);
             } else if (title=='') {
                 console.log("define option title first ");
+                $timeout(function () {
+                    wsFailure({message: 'define option title first'});
+                });
             } else if (nickname=='') {
                 console.log("define your nickname first");
+                $timeout(function () {
+                    wsFailure({message: 'define your nickname first'});
+                });
             }
         };
     };

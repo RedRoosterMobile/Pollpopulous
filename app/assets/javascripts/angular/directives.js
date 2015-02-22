@@ -6,3 +6,11 @@ directives.directive('mmAlertBox',[ function () {
         templateUrl: 'directives/alert_box.html'
     };
 }]);
+
+
+directives.directive('mmGiphy',[ function () {
+    return {
+        restrict: 'E',
+        templateUrl: 'directives/giphy.html'
+    };
+}]);

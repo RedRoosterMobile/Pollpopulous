@@ -1,5 +1,5 @@
 # README #
-
+![Screen Shot 2015-02-22 at 00.52.24.png](https://bitbucket.org/repo/aA4nqq/images/1495585945-Screen%20Shot%202015-02-22%20at%2000.52.24.png)
 Guerilla voting platform to just celebrate quick democratic processes!
 Create/Update/Decide
 

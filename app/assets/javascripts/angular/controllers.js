@@ -130,7 +130,8 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
             $scope.$apply(function(){
                 $scope.alerts.push({
                         msg: data.message,
-                        type: 'warning'
+                        type: 'warning',
+                        timestamp: Date.now()
                 });
             });
             $scope.sfxBlip.play();

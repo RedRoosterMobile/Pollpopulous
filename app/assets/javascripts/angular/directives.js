@@ -38,7 +38,7 @@ directives.directive('mmGiphy',['$timeout', function ($timeout) {
 
 
         scope.startShow=function() {
-            if (!!scope.keywords)
+            if (!scope.keywords)
                 scope.keywords = ['funny','cat'];
 
             var keywordsQuery = scope.keywords.join('+');

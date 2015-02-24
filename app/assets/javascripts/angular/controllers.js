@@ -2,9 +2,12 @@ var controllers = angular.module('Pollpopulous.controllers',['nvd3ChartDirective
 
 controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',function($scope,$http,$timeout,$ngAudio) {
 
+
+    // fnord: on ios, only last loaded sound will play
+    $scope.sfxOverAndOut = $ngAudio.load("/overandout_long.wav");
     $scope.sfxBlip = $ngAudio.load("/blip.wav");
     $scope.sfxCoin = $ngAudio.load("/coin.wav");
-    $scope.sfxOverAndOut = $ngAudio.load("/overandout_long.wav");
+
     $scope.xFunction = function(){
         return function(d) {
             return d.name;
@@ -184,17 +187,18 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
             }
         };
         $scope.addOption = function() {
-            var title = $scope.data.optionName;
-            var nickname =$scope.data.nickname;
-            if (nickname != '' && title != '') {
+            // todo: min nickname length
+            var title = $scope.data.optionName.trim();
+            var nickname =$scope.data.nickname.trim();
+            if (!!title && !!nickname && nickname != '' && title != '' ) {
                 var message = { url: url,poll_id: $scope.data.poll_id, name: title };
                 dispatcher.trigger('poll.add_option', message, wsSuccess, wsFailure);
-            } else if (title=='') {
+            } else if (!title || title=='') {
                 console.log("define option title first ");
                 $timeout(function () {
                     wsFailure({message: 'define option title first'});
                 });
-            } else if (nickname=='') {
+            } else if (!nickname || nickname=='') {
                 console.log("define your nickname first");
                 $timeout(function () {
                     wsFailure({message: 'define your nickname first'});

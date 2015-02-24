@@ -167,7 +167,7 @@ angular.module('ngAudio', [])
                         currentTime: audioObject.currentTime,
                         progress: audioObject.progress,
                         muting: audioObject.muting,
-                        loop: audioObject.loop,
+                        loop: audioObject.loop
                     };
                 }, function(newValue, oldValue) {
                     if (newValue.currentTime !== oldValue.currentTime) {

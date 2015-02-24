@@ -9,7 +9,6 @@ class WsPollsController < WebsocketRails::BaseController
 
   before_action :set_poll, only: [:revoke_vote, :add_candidate, :vote_for_candidate]
   before_action :set_vote_by_nickname, only: [:vote_for_candidate]
-  #before_action :set_candidate_for_voting, only: [:vote_for_candidate]
 
   def add_candidate
     # prevent multiple adds of the same candidate-name for a poll
@@ -19,16 +18,9 @@ class WsPollsController < WebsocketRails::BaseController
       trigger_success(message: true)
 
       last_candidate = candidates.last
-      votes = last_candidate.votes
-
-      # manipulate array to just use attributes
-      vote_array = []
-      votes.each do |vote|
-        vote_array.push vote.attributes
-      end
 
       return_hash = last_candidate.attributes
-      return_hash['votes'] = vote_array
+      return_hash['votes'] = []
 
       # todo: add some hashvalue to avoid duplicated urls
       WebsocketRails[@poll.url.to_sym].trigger(:new_candidate, return_hash)
@@ -42,8 +34,7 @@ class WsPollsController < WebsocketRails::BaseController
     vote_id = message[:vote_id]
     candidate_id = message[:candidate_id]
 
-    #vote = Vote.where(id: vote_id, nickname: nickname)
-    vote = Vote.where(nickname: nickname,poll_id: @poll.id, candidate_id: candidate_id)
+    vote = Vote.where(id: vote_id,nickname: nickname,poll_id: @poll.id, candidate_id: candidate_id)
 
     if vote.first
       trigger_success ({message: 'vote revoked', attr: vote.first.attributes})
@@ -63,8 +54,6 @@ class WsPollsController < WebsocketRails::BaseController
       trigger_failure ({message: 'you already voted for this poll'})
     else
       # create vote on poll
-      # trigger success
-      puts message
       candidate_id = message[:candidate_id]
       @new_vote = Vote.new(poll_id: @poll.id, candidate_id: candidate_id, nickname: message[:nickname])
 
@@ -72,29 +61,10 @@ class WsPollsController < WebsocketRails::BaseController
 
       # trigger update of all channel members
       WebsocketRails[@poll.url.to_sym].trigger(:new_vote, {candidate_id: candidate_id, vote: @new_vote})
-
-      # todo: update votes on clients
     end
   end
 
   private
-
-  #todo: do this after sleeping a few hours 8-(
-
-  def set_candidate_for_voting
-    # candidate_id,
-    candidate = Candidate.find message[:candidate_id]
-    puts 'set_candidate_for_voting'
-    if @poll.id == candidate.poll_id
-      # this is actually not supposed to happen
-      if candidate.votes.where(nickname: message[:nickname]).length > 0
-        # voted already
-      else
-        # vote ok send success signal
-
-      end
-    end
-  end
 
   def set_poll
     if message[:poll_id]
@@ -111,6 +81,5 @@ class WsPollsController < WebsocketRails::BaseController
       @vote=nil
     end
   end
-
 
 end

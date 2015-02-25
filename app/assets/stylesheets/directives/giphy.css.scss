@@ -20,7 +20,8 @@
     @include transition(all .15s linear);
     z-index:0;
     position:relative;
-    @include  transform(rotate(4deg));
+    @include transform(rotate(4deg));
+    @include transform(rotate3d(0,0,1, 4deg));
   }
 
   a:after {

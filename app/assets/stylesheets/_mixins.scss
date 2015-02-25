@@ -88,6 +88,30 @@ animation-timing-function: linear|ease|ease-in|ease-out|cubic-bezier(n,n,n,n)|in
   transition: $transforms ;
 }
 
+@mixin rotate ($deg) {
+  @include transform(rotate(#{$deg}deg));
+}
+
+@mixin skew ($x, $y) {
+  @include transform(skew(#{$x}deg, #{$y}deg));
+}
+
+@mixin translate-rotate($x,$y,$deg) {
+  @include transform(translate($x, $y) rotate(#{$deg}deg));
+}
+/*
+z,y,x,deg
+rotate3d(1, 0, 0, 50deg)
+*/
+/* not working?? */
+@mixin translate-scale($x,$y,$scale) {
+  @include transform(translate($x, $y) scale($scale));
+}
+
+@mixin scale($scale) {
+  @include transform(scale($scale));
+}
+
 
 @mixin translate ($x, $y) {
   @include transform(translate($x, $y));
@@ -100,6 +124,19 @@ animation-timing-function: linear|ease|ease-in|ease-out|cubic-bezier(n,n,n,n)|in
   transform-origin: $origin;
 }
 
+
+@mixin gradient($from, $to) {
+  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));
+  background: -moz-linear-gradient(top,  $from, $to);
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');
+}
+
+@mixin rounded($radius: 0.5em) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
 @mixin button($color: $red, $text_color: $white) {
   display: inline-block;
   outline: none;
@@ -132,15 +169,4 @@ animation-timing-function: linear|ease|ease-in|ease-out|cubic-bezier(n,n,n,n)|in
   }
 }
 
-@mixin rounded($radius: 0.5em) {
-  -webkit-border-radius: $radius;
-  -moz-border-radius: $radius;
-  -ms-border-radius: $radius;
-  border-radius: $radius;
-}
 
-@mixin gradient($from, $to) {
-  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));
-  background: -moz-linear-gradient(top,  $from, $to);
-  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');
-}

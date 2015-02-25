@@ -55,6 +55,27 @@
 
 
 
+.cloud {
+  background: url(cloud.svg);
+  background-size: 100%;
+  width:300px;
+  height:300px;
+}
+.cloud .spacer {
+  margin:50px;
+}
+.cloud .spacer>* {
+  text-shadow: 2px 2px #ff0000;
+}
+.well {
+  background-color: #0d747c;
+  background-color: rgba(13, 116, 124, 0.5);
+}
+.list-group-item {
+  background-color: rgba(19, 160, 170,0.5);
+}
+
+
 
 
 /**

@@ -109,7 +109,7 @@
 
 $sort-animation-speed: 0.2s;
 /* keep in sync with svg-pie */
-$star-animation-speed: 5s;
+$star-animation-speed: 0.5s;
 .list-group-item {
   @include transition($sort-animation-speed);
   &.ng-move {

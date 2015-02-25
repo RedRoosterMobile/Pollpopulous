@@ -1,22 +1,37 @@
-<div class="cloud" >
-  <div class="spacer" >
-<h1>Create a Poll</h1>
+<div class="row">
+  <div class="col-md-4">
+    <div class="cloud">
+      <div class="spacer">
+        <h1>Create a Poll</h1>
 
 
-<p>To create a poll just:</p>
-  <ul>
-    <li>Enter a title of the Poll e.g. "Best Soy Sauce Brand"</li>
-    <li>Enter a hashtag of the Poll e.g. "bssb3000"</li>
-    <li>Hit sumbit</li>
-    <li>Copy the link</li>
-    <li>Share with friends</li>
-    <li>Happy Voting!</li>
-  </ul>
+        <p>To create a poll just:</p>
+        <ul>
+          <li>Enter a title of the Poll e.g. "Best Soy Sauce Brand"</li>
+          <li>Enter a hashtag of the Poll e.g. "bssb3000"</li>
+          <li>Hit sumbit</li>
+          <li>Copy the link</li>
+          <li>Share with friends</li>
+          <li>Happy Voting!</li>
+        </ul>
 
+      </div>
     </div>
+  </div>
+  <div class="col-md-4" >
+    <%# link_to 'Back', polls_path , class: 'btn btn-default'%>
+    <div class="giphy-container polaroid-images">
+      <a href="">
+        <video class="video " width="320" height="240" controls autoplay>
+          <source src="/demo.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </a>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <%= render 'form' %>
+  </div>
+
+
 </div>
-
-
-<%= render 'form' %>
-
-<%# link_to 'Back', polls_path , class: 'btn btn-default'%>

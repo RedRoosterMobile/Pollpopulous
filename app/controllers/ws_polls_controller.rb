@@ -1,4 +1,8 @@
 class WsPollsController < WebsocketRails::BaseController
+
+  # in scalability problems occur, try jruby on trinidad with stomp
+  # http://torquebox.org/documentation/2.0.0/stomp.html
+
   def initialize_session
     # perform application setup here
     controller_store[:message_count] = 0

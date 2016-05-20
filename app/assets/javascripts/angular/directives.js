@@ -33,6 +33,7 @@ directives.directive('mmGiphy',['$timeout', function ($timeout) {
 
             };
             img.className+=" img-responsive";
+            img.style="width:100%;";
             img.src = url.url;
         };
 

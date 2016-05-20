@@ -149,14 +149,20 @@ controllers.controller('mainController',['$scope','$http','$timeout','ngAudio',f
 
 
         $scope.vote = function(option_id) {
-          console.log('clicked vote');
-            var message = {
-                nickname: $scope.data.nickname,
-                candidate_id: option_id ,
-                url: url[0],
-                poll_id: $scope.data.poll_id
-            };
-            dispatcher.trigger('poll.vote_on', message, wsSuccess, wsFailure);
+            console.log('clicked vote');
+            if ($scope.data.nickname && $scope.data.nickname != '') {
+                var message = {
+                    nickname: $scope.data.nickname,
+                    candidate_id: option_id,
+                    url: url[0],
+                    poll_id: $scope.data.poll_id
+                };
+                dispatcher.trigger('poll.vote_on', message, wsSuccess, wsFailure);
+            } else {
+                $timeout(function () {
+                    wsFailure({message: 'define your nickname first'});
+                });
+            }
         };
         $scope.revokeVote = function(option) {
             console.log('clicked revoke');

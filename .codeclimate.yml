@@ -10,10 +10,17 @@ engines:
 ratings:
   paths:
     - "**.coffee"
+    - "**.rb"
+    - "**.haml"
+    - "**.js"
+    - "**.css"
+    - "**.scss"
 exclude_paths:
 - "app/assets/javascripts/nv.d3.js"
 - "app/assets/javascripts/d3.js"
 - "app/assets/javascripts/bootstrap.min.js"
 - "app/assets/javascripts/ui-bootstrap-tpls-0.11.2js"
 - "app/assets/javascripts/angular/animate.js"
-- app/assets/javascripts/angular/modules/
+- "app/assets/javascripts/angular/modules/angularjs-nvd3-directives.js"
+- "app/assets/javascripts/angular/modules/angular.audio.js"
+- "app/assets/javascripts/angular/modules/angular_ui_router.js"

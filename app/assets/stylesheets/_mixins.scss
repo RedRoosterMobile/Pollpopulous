@@ -47,17 +47,17 @@
   animation:         $animations;
 }
 
-@mixin keyframes($animationName) {
-  @-webkit-keyframes #{$animationName} {
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
     @content;
   }
-  @-moz-keyframes #{$animationName} {
+  @-moz-keyframes #{$animation-name} {
     @content;
   }
-  @-o-keyframes #{$animationName} {
+  @-o-keyframes #{$animation-name} {
     @content;
   }
-  @keyframes #{$animationName} {
+  @keyframes #{$animation-name} {
     @content;
   }
 }
@@ -80,12 +80,13 @@ animation-timing-function: linear|ease|ease-in|ease-out|cubic-bezier(n,n,n,n)|in
   -webkit-transform: $transforms;
   transform: $transforms;
 }
+
 @mixin transition($transforms) {
   -moz-transition: $transforms;
   -o-transition: $transforms;
   -ms-transition: $transforms;
   -webkit-transition: $transforms;
-  transition: $transforms ;
+  transition: $transforms;
 }
 
 @mixin rotate ($deg) {
@@ -99,9 +100,11 @@ animation-timing-function: linear|ease|ease-in|ease-out|cubic-bezier(n,n,n,n)|in
 @mixin translate-rotate($x,$y,$deg) {
   @include transform(translate($x, $y) rotate(#{$deg}deg));
 }
+
 @mixin scale-rotate($scale,$deg) {
   @include transform(scale($scale) rotate(#{$deg}deg));
 }
+
 /*
 z,y,x,deg
 rotate3d(1, 0, 0, 50deg)
@@ -140,6 +143,7 @@ rotate3d(1, 0, 0, 50deg)
   -ms-border-radius: $radius;
   border-radius: $radius;
 }
+
 @mixin button($color: $red, $text_color: $white) {
   display: inline-block;
   outline: none;
@@ -170,6 +174,8 @@ rotate3d(1, 0, 0, 50deg)
     color: saturate($color, 15%);
     @include gradient(saturate($color, 15%), lighten($color, 15%));
   }
+
 }
+
 
 

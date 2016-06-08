@@ -3,6 +3,9 @@ engines:
     enabled: true
   scss-lint:
       enabled: true
+      checks:
+        VendorPrefix:
+          enabled: false
   duplication:
       enabled: true
       config:
@@ -28,3 +31,5 @@ exclude_paths:
 - "app/assets/javascripts/angular/modules/angular.audio.js"
 - "app/assets/javascripts/angular/modules/angular_ui_router.js"
 - "lib/tasks/cucumber.rake"
+- "app/assets/stylesheets/nv.d3.css"
+- "app/assets/stylesheets/amelia.theme.bootsrap.css.scss"

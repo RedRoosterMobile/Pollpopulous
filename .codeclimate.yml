@@ -7,7 +7,6 @@ engines:
         languages:
         - ruby
         - javascript
-        - coffee
 ratings:
   paths:
     - "**.coffee"

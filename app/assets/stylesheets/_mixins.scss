@@ -99,6 +99,9 @@ animation-timing-function: linear|ease|ease-in|ease-out|cubic-bezier(n,n,n,n)|in
 @mixin translate-rotate($x,$y,$deg) {
   @include transform(translate($x, $y) rotate(#{$deg}deg));
 }
+@mixin scale-rotate($scale,$deg) {
+  @include transform(scale($scale) rotate(#{$deg}deg));
+}
 /*
 z,y,x,deg
 rotate3d(1, 0, 0, 50deg)

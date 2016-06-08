@@ -38,5 +38,22 @@
 //= require_tree .
 
 
+function calculateAspectRatio($element) {
+    return $element.width() / $element.height();
+}
 
-
+$(document).ready(function () {
+    var $body = $('body');
+    var ratioHandler = function () {
+        var ratio = calculateAspectRatio($body);
+        if (ratio > 2.125) {
+            console.log('bad ratio!');
+            $body.removeClass('rolling');
+        } else {
+            $body.addClass('rolling');
+            console.log('good ratio!');
+        }
+    };
+    $(window).resize(ratioHandler);
+    ratioHandler();
+});

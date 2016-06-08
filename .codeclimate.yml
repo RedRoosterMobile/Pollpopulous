@@ -1,7 +1,13 @@
 engines:
   coffeelint:
     enabled: true
-
+  duplication:
+      enabled: true
+      config:
+        languages:
+        - ruby
+        - javascript
+        - coffee
 ratings:
   paths:
     - "**.coffee"

@@ -33,7 +33,7 @@ directives.directive 'mmGiphy', [
               scope.image_mp4 = $sce.trustAsResourceUrl(image.mp4)
               scope.image_webp = $sce.trustAsResourceUrl(image.webp)
 
-              vid = element.find('video');
+              vid = element.find('video')
               if vid? and vid.length > 0
                 # reload video to new source
                 vid[0].load()

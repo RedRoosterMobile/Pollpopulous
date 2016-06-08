@@ -16,6 +16,7 @@ ratings:
     - "**.css"
     - "**.scss"
 exclude_paths:
+- db/
 - "app/assets/javascripts/nv.d3.js"
 - "app/assets/javascripts/d3.js"
 - "app/assets/javascripts/bootstrap.min.js"
@@ -24,3 +25,4 @@ exclude_paths:
 - "app/assets/javascripts/angular/modules/angularjs-nvd3-directives.js"
 - "app/assets/javascripts/angular/modules/angular.audio.js"
 - "app/assets/javascripts/angular/modules/angular_ui_router.js"
+- "lib/tasks/cucumber.rake"

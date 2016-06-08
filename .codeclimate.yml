@@ -6,6 +6,8 @@ engines:
       checks:
         VendorPrefix:
           enabled: false
+        DeclarationOrder:
+          enabled: false
   duplication:
       enabled: true
       config:

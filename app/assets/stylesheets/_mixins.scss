@@ -1,8 +1,4 @@
-
-/*TODO: check http://bourbon.io/ gem */
-
-
-/*http://codepen.io/sawmac/pen/rjHFd*/
+//http://codepen.io/sawmac/pen/rjHFd
 
 @mixin box-shadow($top, $left, $blur, $color, $inset: false) {
   @if $inset {
@@ -26,7 +22,7 @@
   padding: .5em;
   text-shadow: 0 1px 1px rgba(0,0,0,.3);
   @include rounded();
-  @include box-shadow(0, 1px, 2px, rgba(0, 0, 0, 0.2));
+  @include box-shadow(0, 1px, 2px, rgba(0, 0, 0, .2));
 }
 
 @mixin animation($animate...) {
@@ -63,16 +59,15 @@
 }
 
 
-/*
-animation-timing-function: linear|ease|ease-in|ease-out|cubic-bezier(n,n,n,n)|initial|inherit;
-*/
+
+//animation-timing-function: linear|ease|ease-in|ease-out|cubic-bezier(n,n,n,n)|initial|inherit;
 @mixin animation-timing-function($timing...) {
   -o-animation-timing-function: $timing;
   -moz-animation-timing-function: $timing;
   -webkit-animation-timing-function: $timing;
   animation-timing-function: $timing;
 }
-/* http://codepen.io/sawmac/pen/qGudy */
+// http://codepen.io/sawmac/pen/qGudy
 @mixin transform($transforms) {
   -moz-transform: $transforms;
   -o-transform: $transforms;
@@ -137,14 +132,14 @@ rotate3d(1, 0, 0, 50deg)
   filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');
 }
 
-@mixin rounded($radius: 0.5em) {
+@mixin rounded($radius: .5em) {
   -webkit-border-radius: $radius;
   -moz-border-radius: $radius;
   -ms-border-radius: $radius;
   border-radius: $radius;
 }
 
-@mixin button($color: $red, $text_color: $white) {
+@mixin button($color: $red, $text-color: $white) {
   display: inline-block;
   outline: none;
   cursor: pointer;
@@ -154,9 +149,9 @@ rotate3d(1, 0, 0, 50deg)
   padding: .5em 2em .55em;
   text-shadow: 0 1px 1px rgba(0,0,0,.3);
   @include rounded();
-  @include box-shadow(0, 1px, 2px, rgba(0, 0, 0, 0.2));
+  @include box-shadow(0, 1px, 2px, rgba(0, 0, 0, .2));
 
-  color: $text_color !important;
+  color: $text-color !important;
   font-weight: bold;
   border: solid 1px darken($color, 18%);
   background: $color;

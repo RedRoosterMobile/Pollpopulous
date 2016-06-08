@@ -14,26 +14,22 @@ controllers.controller 'mainController', [
     $scope.sfxBlip = $ngAudio.load('/blip.wav')
     $scope.sfxCoin = $ngAudio.load('/coin.wav')
 
-    $scope.xFunction = ->
-      (d) ->
-        d.name
-
-    $scope.yFunction = ->
-      (d) ->
-        d.votes.length
-
     $scope.descriptionFunction = ->
       (d) ->
         d.name
 
+    $scope.voteCount = ->
+      (d) ->
+        d.votes.length
+
     $scope.getIndexOfCandidate = (candidate) ->
       $scope.data.candidates.indexOf candidate
 
-    $scope.defs = (svg) ->
-      console.log svg
-      return
-
-    $scope.alerts = []
+    $scope.alerts = [ {
+      type: 'success'
+      msg: 'Welcome to Lunch Poll'
+      timestamp: Date.now()
+    } ]
 
     $scope.closeAlert = (index) ->
       $scope.alerts.splice index, 1
@@ -63,15 +59,13 @@ controllers.controller 'mainController', [
 
     $scope.init = (msg, poll_id) ->
       $scope.data.keywords = [
-        'arnold'
-        'schwarzenegger'
+        'stupid'
+        'cat'
       ]
       $scope.data.nickname = ''
       console.log 'init called'
-      #console.log(msg);
       $scope.data.knownSender = false
       $scope.data.optionName = ''
-      console.log msg
       $scope.data.candidates = msg
       $scope.data.poll_id = poll_id
       storedNickname = localStorage.getItem('nickname')
@@ -86,9 +80,20 @@ controllers.controller 'mainController', [
         return
       channel.bind 'revoked_vote', (data) ->
         console.log 'revoked vote-----------------'
+        console.log "data #{data}"
+        console.log data
+
+        # kick out corresponding vote
+        #candidate = $.grep $scope.data.candidates, (where) -> where.id == data.candidate_id
+        #if candidate.length > 0
+        #  vote = $.grep candidate[0].votes , (where) -> where.id == data.vote.id
+        #  if vote.length > 0
+        #    $scope.data.candidates[$scope.data.candidates.indexOf(candidate[0])].votes.pop(vote[0])
+
+        # madness, but works!!
+
         smash = false
         i = 0
-        # madness!!
         while i < $scope.data.candidates.length
           if $scope.data.candidates[i].id == data.candidate_id
             j = 0
@@ -98,7 +103,7 @@ controllers.controller 'mainController', [
               if isSameName and isSameId
                 $scope.$apply ->
                   # kick it out
-                  $scope.data.candidates[i].votes.splice j, 1
+                  console.log $scope.data.candidates[i].votes.splice j, 1
                   smash = true
                   return
               if smash
@@ -107,17 +112,16 @@ controllers.controller 'mainController', [
           if smash
             break
           i++
+
         return
       channel.bind 'new_vote', (data) ->
         console.log 'new_vote'
-        i = 0
-        while i < $scope.data.candidates.length
-          if $scope.data.candidates[i].id == data.candidate_id
+        for candidate in $scope.data.candidates
+          if candidate.id == data.candidate_id
             $scope.$apply ->
               # update goes here
-              $scope.data.candidates[i].votes.push data.vote
+              candidate.votes.push data.vote
               return
-          i++
         return
 
       wsSuccess = (data) ->
@@ -137,6 +141,11 @@ controllers.controller 'mainController', [
             type: 'warning'
             timestamp: Date.now()
           return
+
+        popAlert()
+        return
+
+      popAlert = ->
         $scope.sfxBlip.play()
         # trigger leave animation after certain time
         $timeout (->
@@ -146,7 +155,9 @@ controllers.controller 'mainController', [
           return
         ), 3000
         # fiqure out a way to eliminate this timer
-        return
+
+      # pop welcome alert once
+      popAlert()
 
       $scope.vote = (option_id) ->
         console.log 'clicked vote'
@@ -165,22 +176,17 @@ controllers.controller 'mainController', [
 
       $scope.revokeVote = (option) ->
         console.log 'clicked revoke'
-        notYours = true
-        i = 0
-        while i < option.votes.length
-          if option.votes[i].nickname == $scope.data.nickname
-            message =
-              nickname: $scope.data.nickname
-              vote_id: option.votes[i].id
-              poll_id: $scope.data.poll_id
-              candidate_id: option.id
-              url: url[0]
-            dispatcher.trigger 'poll.revoke_vote', message, wsSuccess, wsFailure
-            # end loop
-            notYours = false
-            i = option.votes.length + 1
-          i++
-        if notYours and option.votes.length > 0
+        vote = $.grep option.votes, (where) -> where.nickname == $scope.data.nickname
+        if vote.length > 0
+          message =
+            nickname: $scope.data.nickname
+            vote_id: vote[0].id
+            poll_id: $scope.data.poll_id
+            candidate_id: option.id
+            url: url[0]
+          dispatcher.trigger 'poll.revoke_vote', message, wsSuccess, wsFailure
+          return
+        else if option.votes.length > 0
           $timeout ->
             wsFailure message: 'Not your vote'
             return

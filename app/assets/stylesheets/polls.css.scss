@@ -23,8 +23,9 @@ body:before {
   height:100%;
   top:-30px;
   background-image: url(/animated_launch_day.svg);
-  opacity: 0.8;
+  opacity: 0.75;
 }
+
 body.rolling:before {
   top: -100%;
   left: -100%;

@@ -67,10 +67,7 @@
 .cloud .spacer>* {
   text-shadow: 2px 2px #ff0000;
 }
-.well {
-  background-color: #0d747c;
-  background-color: rgba(13, 116, 124, 0.5);
-}
+
 .list-group-item {
   background-color: rgba(19, 160, 170,0.5);
 }
@@ -162,4 +159,11 @@ span.glyphicon-star-empty {
     @include translate(-100px,0px);
     opacity:0;
   }
+}
+
+body .well {
+  // why does this not kick in??
+  background-color: #0d747c;
+  background: #0d747c;
+  //background-color: rgba(13, 116, 124, 0.5);
 }

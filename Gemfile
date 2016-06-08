@@ -9,6 +9,8 @@ gem 'rails_12factor', group: :production
 group :development, :test do
   gem 'sqlite3'
 end
+
+gem 'haml-rails', '~> 0.9'
 gem 'sidekiq'
 gem 'pg' ,group: :production
 # Use SCSS for stylesheets

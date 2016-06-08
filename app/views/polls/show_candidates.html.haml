@@ -1,0 +1,52 @@
+.Pollpopulous{'ng-controller' => 'mainController', 'ng-init' => "init(#{@candidates},#{@poll_id})"}
+  .row
+    .well
+      .row
+        .col-md-2.hidden-xs
+          %nvd3-pie-chart.donut-chart{:color => 'color()',
+          :data => 'data.candidates',
+          :donut => 'true',
+          :donutlabelsoutside => 'false',
+          :donutratio => '.3', :height => '300',
+          :labeltype => 'percent',
+          :margin => '{left:0,top:0,bottom:0,right:0}',
+          :objectequality => 'true',
+          :showlabels => 'false',
+          :tooltips => 'true',
+          :transitionduration => '500',
+          :width => '300',
+          :x => 'descriptionFunction()',
+          :y => 'voteCount()'}
+            %svg{:height => '300'}
+        .col-md-2
+          %h1= @title
+        .col-md-3.col-sm-4.col-xs-10
+          .row
+            %form#add_candidate_form{'ng-submit' => 'addOption()',
+            :role => 'form'}
+              .form-group
+                %label{:for => 'candidate_title'} Option
+                %input#candidate_title.form-control{name: 'location',
+                'ng-model' => 'data.optionName',
+                placeholder: 'Persian Pizza Prince',
+                type: 'text'}
+                %label{for: 'nickname'} Name
+                %input#nickname.form-control{:name => 'nickname', 'ng-disabled' => 'data.knownSender', 'ng-model' => 'data.nickname', :placeholder => 'your name', :type => 'text'}/
+              %button.btn.btn-default{:type => 'submit'} Add new option
+        .col-md-5.col-sm-4.hidden-xs
+          %mm-giphy{'api-key' => "{{'dc6zaTOxFJmzC'}}", :keywords => 'data.keywords', 'speed-ms' => '{{3000}}', :title => "{{'There\\'ll be cats!'}}"}
+      / <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+      %mm-alert-box
+  .list-group
+    .list-group-item(ng-repeat= "option in data.candidates | orderBy: '-votes.length'" )
+      .row
+        .col-sm-9
+          %h4.list-group-item-heading
+            {{option.name}}
+          %p.list-group-item-text
+            Votes:
+            %span.glyphicon.glyphicon-star-empty{'ng-repeat' => 'vote in option.votes'}
+        .col-sm-3
+          .btn-group.clearfix(style='float:right;')
+            %a.btn.btn-primary.btn-xs.vote{'ng-click' => 'vote(option.id)'} Vote here
+            %a.btn.btn-default.btn-xs{'ng-click' => 'revokeVote(option,$index)'} Revoke Vote

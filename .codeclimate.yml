@@ -17,3 +17,4 @@ exclude_paths:
 - "app/assets/javascripts/bootstrap.min.js"
 - "app/assets/javascripts/ui-bootstrap-tpls-0.11.2js"
 - "app/assets/javascripts/angular/animate.js"
+- app/assets/javascripts/angular/modules/

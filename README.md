@@ -1,5 +1,5 @@
 # README #
-
+[![Code Climate](https://codeclimate.com/github/RedRoosterMobile/Pollpopulous/badges/gpa.svg)](https://codeclimate.com/github/RedRoosterMobile/Pollpopulous)
 ![Screen Shot 2015-02-23 at 01.12.08.png](https://bitbucket.org/repo/aA4nqq/images/2275765069-Screen%20Shot%202015-02-23%20at%2001.12.08.png)
 
 Guerilla voting platform to just celebrate quick democratic processes!

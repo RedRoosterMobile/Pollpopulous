@@ -2,20 +2,20 @@
 
 // svg stuff
 svg {
-  .redForegroundStop1 {
+  .red-foreground-stop1 {
     stop-color: #fff4f3;
     top-opacity: 1;
   }
-  .redForegroundStop2 {
+  .red-foreground-stop2 {
     stop-color: #ffbdb5;
     stop-opacity: 1;
   }
 
-  .purpleBackgroundStop1 {
+  .purple-background-stop1 {
     stop-color: #c7cbf6;
     stop-opacity: 1;
   }
-  .purpleBackgroundStop2 {
+  .purple-background-stop2 {
     stop-color: #a8aff1;
     stop-opacity: 1;
   }
@@ -26,7 +26,7 @@ svg {
   font-size: 5px;
 }
 
-.donut-chart{
+.donut-chart {
   @include box-shadow(3px, 3px, 10px, #666);
   svg {
     width: 150px;
@@ -37,7 +37,7 @@ svg {
 // end svg stuff
 
 .chart-holder {
-  position:absolute;
+  position: absolute;
 }
 
 .well {
@@ -48,7 +48,7 @@ svg {
 
 .list-group-item-text {
   span.glyphicon-star-empty {
-      color: gold;
+    color: gold;
 
   }
 }
@@ -56,25 +56,21 @@ svg {
 .cloud {
   background: url(/cloud.svg);
   background-size: 100%;
-  width:300px;
-  height:300px;
+  width: 300px;
+  height: 300px;
 }
 
 .cloud .spacer {
-  margin:50px;
+  margin: 50px;
 }
 
-.cloud .spacer>* {
+.cloud .spacer > * {
   text-shadow: 2px 2px #ff0000;
 }
 
 .list-group-item {
-  background-color: rgba(19, 160, 170,0.5);
+  background-color: rgba(19, 160, 170, .5);
 }
-
-
-
-
 
 //http://www.yearofmoo.com/2013/08/remastered-animation-in-angularjs-1-2.html
 .animation {
@@ -82,7 +78,7 @@ svg {
 }
 
 .animation.ng-enter {
-  opacity:0;
+  opacity: 0;
 }
 
 .animation.ng-leave {
@@ -94,72 +90,73 @@ svg {
 
 }
 
-/*when clicked close() or alert is dropped off the array*/
+//when clicked close() or alert is dropped off the array
 .animation.ng-leave.ng-leave-active {
   opacity: 0;
   @include transform-origin('0 0');
   @include animation('bounceOut ease 4s 1');
 }
+
 // http://www.markskowrondesign.com/blog/are-your-css3-animations-broken-in-ie10-and-ie11/
 @include keyframes(bounceOut) {
   0% {
-    opacity:1;
+    opacity: 1;
     /*transform:  translate(0px,0px)  ;*/
-    @include translate(0px,0px);
+    @include translate(0px, 0px);
   }
   20% {
-    opacity:1;
-    @include translate(20px,0px)  ;
+    opacity: 1;
+    @include translate(20px, 0px);
   }
   100% {
-    opacity:0;
-    @include translate(-1000px,0px)  ;
+    opacity: 0;
+    @include translate(-1000px, 0px);
   }
 }
 
 //  http://www.cssanimate.com/
 .alert-box {
-  position:fixed;
-  top:0;
-  left:0;
+  position: fixed;
+  top: 0;
+  left: 0;
   padding: 15px;
   max-width: 50%;
   min-width: 300px;
 }
 
-$sort-animation-speed: 0.2s;
+$sort-animation-speed: .2s;
 /* keep in sync with svg-pie */
-$star-animation-speed: 0.5s;
+$star-animation-speed: .5s;
 .list-group-item {
   @include transition($sort-animation-speed);
   &.ng-move {
-    background: rgba(255, 215, 0, 0.8);
+    background: rgba(255, 215, 0, .8);
   }
   &.ng-move-active {
-    /*background: rgba(255, 255, 255, 0.8);*/
+    //background: rgba(255, 255, 255, 0.8);
   }
 }
+
 span.glyphicon-star-empty {
   @include transition($star-animation-speed);
   opacity: 1;
 
   @include animation-timing-function(ease-in);
   &.ng-enter {
-    @include translate-rotate(100px,0px,360);
-    opacity:0.1;
+    @include translate-rotate(100px, 0px, 360);
+    opacity: 0.1;
     color: lightgreen;
   }
   &.ng-enter.ng-enter-active {
 
-    @include translate(0px,0px);
-    opacity:1;
-
+    @include translate(0px, 0px);
+    opacity: 1;
 
     color: lightblue;
   }
   &.ng-leave {
-    @include translate(-100px,0px);
-    opacity:0;
+    @include translate(-100px, 0px);
+    opacity: 0;
   }
 }
 
@@ -167,5 +164,5 @@ body .well {
   // why does this not kick in??
   background-color: #0d747c;
   //background: #0d747c;
-  background-color: rgba(13, 116, 124, 0.5);
+  background-color: rgba(13, 116, 124, .5);
 }

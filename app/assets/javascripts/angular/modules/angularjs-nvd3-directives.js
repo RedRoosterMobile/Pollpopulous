@@ -834,11 +834,11 @@
             .attr( 'y2', '1' );
 
         gradientForegroundPurple.append( 'stop' )
-            .attr( 'class', 'purpleBackgroundStop1' )
+            .attr( 'class', 'purple-background-stop1' )
             .attr( 'offset', '0%' );
 
         gradientForegroundPurple.append( 'stop' )
-            .attr( 'class', 'purpleBackgroundStop2' )
+            .attr( 'class', 'purple-background-stop2' )
             .attr( 'offset', '100%' );
 
 
@@ -850,11 +850,11 @@
             .attr( 'y2', '1' );
 
         gradientForegroundRed.append( 'stop' )
-            .attr( 'class', 'redForegroundStop1' )
+            .attr( 'class', 'red-foreground-stop1' )
             .attr( 'offset', '0%' );
 
         gradientForegroundRed.append( 'stop' )
-            .attr( 'class', 'redForegroundStop2' )
+            .attr( 'class', 'red-foreground-stop2' )
             .attr( 'offset', '100%' );
         //// END GRADIENT
 

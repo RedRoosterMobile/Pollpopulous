@@ -31,7 +31,7 @@ body.rolling:before {
   width: 300%;
   height: 300%;
   @include scale-rotate(0.8, 0);
-  @include animation(spin 4s linear infinite);
+  @include animation(spin 222s linear infinite);
 }
 
 @include keyframes('spin') {

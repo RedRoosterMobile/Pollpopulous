@@ -35,6 +35,8 @@
   img, video {
     display: block;
     width: inherit;
+    min-height: 120px;
+    @include transition(all 1s ease-in-out);
   }
 
   a:hover {

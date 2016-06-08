@@ -24,6 +24,8 @@ body:before {
   top:-30px;
   background-image: url(/animated_launch_day.svg);
   opacity: 0.75;
+  // get the fuck back!
+  z-index: -1;
 }
 
 body.rolling:before {
@@ -39,4 +41,4 @@ body.rolling:before {
   100% {
     @include scale-rotate(0.8,360);
   }
-};
+}

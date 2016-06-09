@@ -11,13 +11,16 @@ directives.directive 'mmGiphy', [
   ($interval,$sce) ->
 
     link = (scope, element, attrs) ->
-      if !scope.keywords
+      unless scope.keywords?
         scope.keywords = [
           'funny'
           'cat'
         ]
+      unless scope.limit?
+        scope.limit = 25
+      # stickers, search
       keywordsQuery = scope.keywords.join('+')
-      scope.giphyUrl = "https://api.giphy.com/v1/gifs/search?q=#{keywordsQuery}&api_key=#{scope.apiKey}&limit=10"
+      scope.giphyUrl = "https://api.giphy.com/v1/stickers/search?q=#{keywordsQuery}&api_key=#{scope.apiKey}&limit=#{scope.limit}"
       counter = 0
       playing = false
       $.get scope.giphyUrl, (data) ->

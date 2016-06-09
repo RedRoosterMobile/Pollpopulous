@@ -59,8 +59,8 @@ controllers.controller 'mainController', [
 
     $scope.init = (msg, poll_id) ->
       $scope.data.keywords = [
-        'stupid'
-        'cat'
+        'food'
+        'meat'
       ]
       $scope.data.nickname = ''
       console.log 'init called'

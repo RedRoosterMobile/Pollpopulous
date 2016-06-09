@@ -75,3 +75,7 @@ end
 And(/^I clean up for coverage$/) do
   @poll.destroy
 end
+
+Then(/^I see "([^"]*)" stars$/) do |arg|
+  assert page.assert_selector('.glyphicon.glyphicon-star-empty', :count => arg.to_i)
+end

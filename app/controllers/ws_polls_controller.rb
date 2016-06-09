@@ -73,8 +73,8 @@ class WsPollsController < WebsocketRails::BaseController
   def set_poll
     if message[:poll_id]
       @poll = Poll.find(message[:poll_id])
-    else
-      @poll = Poll.find_by_url(message[:url])
+      #else
+      #  @poll = Poll.find_by_url(message[:url])
     end
   end
 

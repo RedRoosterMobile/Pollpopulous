@@ -25,6 +25,11 @@ Feature:
     And I go to the poll url
     Then I see one star
     When I enter my nickname "nick name"
+    And I vote for "option name2"
+    Then I see "2" stars
+    When I revoke vote for "option name2"
+    Then I see one star
     When I revoke vote for "option name2"
     Then I see one star
     And I clean up for coverage
+

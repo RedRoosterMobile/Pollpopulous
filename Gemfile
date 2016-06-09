@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.1.3'
+ruby '2.3.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.0'
+gem 'rails', '4.2.0'
 # for heroku
 gem 'rails_12factor', group: :production
 # Use sqlite3 as the database for Active Record
@@ -10,8 +10,7 @@ group :development, :test do
   gem 'sqlite3'
 end
 
-gem 'haml-rails', '~> 0.9'
-gem 'sidekiq'
+
 gem 'pg' ,group: :production
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
@@ -46,12 +45,16 @@ gem 'spring',        group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+gem 'nokogiri', '~> 1.6.8.rc2'
+gem 'haml-rails'
+gem 'sidekiq'
 
+# https://community.codeship.com/t/nokogiri-isnt-installing-on-ruby-2-3/19/3
+gem 'faye-websocket', '0.10.0'
 gem 'websocket-rails'
-gem 'angularjs-rails', '1.3.0'
+gem 'angularjs-rails'
 # preload angular templates, no async request required
 
-# breaks on angular 1.3.1 sucks!!
 gem 'angular-rails-templates'
 group :development, :test do
   gem 'jasmine'
@@ -60,7 +63,7 @@ group :development, :test do
 end
 # coverage
 group :test, :development do
-  gem 'simplecov', '~> 0.9.0',require: false
+  gem 'simplecov',require: false
   gem 'webmock'
   gem 'cucumber-rails', require: false
   gem 'minitest'

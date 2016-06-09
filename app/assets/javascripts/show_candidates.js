@@ -8,6 +8,11 @@ var coverEditor = angular.module('Pollpopulous',['templates','ui.router','ui.boo
 // @see: http://stackoverflow.com/questions/14797935/using-angularjs-with-turbolinks
 $(document).on('ready page:load', function(event) {
     console.log('put on me strappings!');
+    //Unknown provider
+    //angular.bootstrap(document, ['Pollpopulous']);
     angular.bootstrap($('div.Pollpopulous')[0], ['Pollpopulous']);
+    //angular.element(document).ready(function() {
+    //    angular.bootstrap(document, ['Pollpopulous']);
+    //});
     console.log('..click, clack!');
 });

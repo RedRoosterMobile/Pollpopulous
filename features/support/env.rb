@@ -7,10 +7,10 @@
 require 'simplecov'
 require 'coveralls'
 
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-    SimpleCov::Formatter::HTMLFormatter,
-    Coveralls::SimpleCov::Formatter
-]
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+                                                                   SimpleCov::Formatter::HTMLFormatter,
+                                                                   Coveralls::SimpleCov::Formatter
+                                                               ])
 SimpleCov.start
 
 require 'cucumber/rails'
@@ -31,6 +31,10 @@ Capybara.server do |app, port|
   require 'rack/handler/thin'
   Rack::Handler::Thin.run(app, :Port => port)
 end
+
+#DEPRECATED: Passing a block to Capybara::server is deprecated, please use Capybara::register_server instead
+
+#Capybara.server = :thin
 
 # allow websockets from localhost
 WebMock.disable_net_connect!(:allow_localhost => true)

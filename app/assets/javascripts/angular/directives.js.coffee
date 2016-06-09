@@ -31,7 +31,7 @@ directives.directive 'mmGiphy', [
         if scope.results and scope.results.length > 0
           playing = true
           scope.timeOut = $interval((->
-            image = scope.results[counter].images.fixed_height
+            image = scope.results[counter].images.fixed_width
             if image? and image.mp4?
               scope.image_mp4 = $sce.trustAsResourceUrl(image.mp4)
               scope.image_webp = $sce.trustAsResourceUrl(image.webp)

@@ -36,6 +36,8 @@
     display: block;
     width: inherit;
     min-height: 120px;
+    max-height: 130px;
+    max-width: 100%;
     @include transition(all 1s ease-in-out);
   }
 

@@ -24,6 +24,9 @@ module Pollpopulous
     # Autoload lib/ folder including all subdirectories
     config.autoload_paths += %W(#{config.root}/lib)
 
+    # see: http://richardyuwono.org/post/85523208658/heroku-websocket-rails-rails-4
+    config.middleware.delete 'Rack::Lock'
+
     config.generators do |g|
       g.test_framework :mini_test, :spec => true, :fixture => true
     end

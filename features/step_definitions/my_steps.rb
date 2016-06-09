@@ -36,9 +36,42 @@ end
 
 When(/^I revoke vote for "([^"]*)"$/) do |arg|
   find(:css,'a.revoke').click
+  sleep 1
 end
 
 Then(/^I see no stars$/) do
   sleep 1
   page.has_no_css?('.glyphicon.glyphicon-star-empty')
+end
+
+Then(/^there is still only one option$/) do
+  assert Array(
+             find(:css, '.list-group-item')
+         ).length == 1
+end
+
+
+# fixme: use factory girl!
+
+Given(/^There is a poll set up$/) do
+  @poll = Poll.new(title:'some test poll' , url:'some_url')
+  @poll.candidates.push(Candidate.new(name: 'option name2'))
+  @poll.save!
+end
+
+And(/^Someone has voted on a candiate$/) do
+  new_vote = Vote.new(
+      poll_id: @poll.id,
+      candidate_id: @poll.candidates.first.id,
+      nickname: 'not you')
+  new_vote.save!
+end
+
+And(/^I go to the poll url$/) do
+  visit "/vote_here/#{@poll.url}"
+end
+
+# todo: model tests
+And(/^I clean up for coverage$/) do
+  @poll.destroy
 end

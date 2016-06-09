@@ -102,15 +102,15 @@ svg {
   0% {
     opacity: 1;
     /*transform:  translate(0px,0px)  ;*/
-    @include translate(0px, 0px);
+    @include translate(0px,0);
   }
   20% {
     opacity: 1;
-    @include translate(20px, 0px);
+    @include translate(20px,0);
   }
   100% {
     opacity: 0;
-    @include translate(-1000px, 0px);
+    @include translate(-1000px,0);
   }
 }
 
@@ -143,19 +143,19 @@ span.glyphicon-star-empty {
 
   @include animation-timing-function(ease-in);
   &.ng-enter {
-    @include translate-rotate(100px, 0px, 360);
+    @include translate-rotate(100px,0, 360);
     opacity: 0.1;
-    color: lightgreen;
+    color: #90ee90;
   }
   &.ng-enter.ng-enter-active {
 
-    @include translate(0px, 0px);
+    @include translate(0px,0);
     opacity: 1;
 
-    color: lightblue;
+    color: #add8e6;
   }
   &.ng-leave {
-    @include translate(-100px, 0px);
+    @include translate(-100px,0);
     opacity: 0;
   }
 }

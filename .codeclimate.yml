@@ -8,6 +8,12 @@ engines:
           enabled: false
         DeclarationOrder:
           enabled: false
+        HexLength:
+          enabled: false
+        ColorKeyword:
+          enabled: false
+        ColorVariable:
+          enabled: false
   duplication:
       enabled: true
       config:

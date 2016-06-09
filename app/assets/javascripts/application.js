@@ -34,6 +34,7 @@
 // other angular stuff
 //= require angular/animate
 //= require ui-bootstrap-tpls-0.11.2
+//= require modernizr-2.7.2
 
 //= require_tree .
 

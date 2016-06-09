@@ -36,7 +36,7 @@ directives.directive 'mmGiphy', [
               vid = element.find('video')
               if vid? and vid.length > 0
                 # reload video to new source
-                vid[0].load()
+                vid[0].load() if Modernizr.video
 
             counter++
             counter = 0 if counter >= scope.results.length-1

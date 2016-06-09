@@ -49,4 +49,4 @@
         .col-sm-3
           .btn-group.clearfix(style='float:right;')
             %a.btn.btn-primary.btn-xs.vote{'ng-click' => 'vote(option.id)'} Vote here
-            %a.btn.btn-default.btn-xs{'ng-click' => 'revokeVote(option,$index)'} Revoke Vote
+            %a.btn.btn-default.btn-xs.revoke{'ng-click' => 'revokeVote(option,$index)'} Revoke Vote

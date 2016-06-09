@@ -55,10 +55,11 @@ gem 'angularjs-rails', '1.3.0'
 gem 'angular-rails-templates'
 group :development, :test do
   gem 'jasmine'
-  gem 'pry'
+  gem 'byebug'
+  gem 'coveralls', require: false
 end
 # coverage
-group :test do
+group :test, :development do
   gem 'simplecov', '~> 0.9.0',require: false
   gem 'webmock'
   gem 'cucumber-rails', require: false
@@ -66,6 +67,7 @@ group :test do
   gem 'cucumber'
   gem 'poltergeist'
   gem 'capybara_minitest_spec'
+
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
 end

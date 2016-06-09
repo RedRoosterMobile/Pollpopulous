@@ -10,9 +10,9 @@ controllers.controller 'mainController', [
   'ngAudio'
   ($scope, $http, $timeout, $ngAudio) ->
     # fnord: on ios, only last loaded sound will play
-    $scope.sfxOverAndOut = $ngAudio.load('/overandout_long.wav')
-    $scope.sfxBlip = $ngAudio.load('/blip.wav')
-    $scope.sfxCoin = $ngAudio.load('/coin.wav')
+    $scope.sfxOverAndOut = $ngAudio.load('/overandout_long.wav') if Modernizr.audio
+    $scope.sfxBlip = $ngAudio.load('/blip.wav') if Modernizr.audio
+    $scope.sfxCoin = $ngAudio.load('/coin.wav') if Modernizr.audio
 
     $scope.descriptionFunction = ->
       (d) ->
@@ -33,7 +33,7 @@ controllers.controller 'mainController', [
 
     $scope.closeAlert = (index) ->
       $scope.alerts.splice index, 1
-      $scope.sfxOverAndOut.play()
+      $scope.sfxOverAndOut.play() if Modernizr.audio
       return
 
     colors = [
@@ -129,7 +129,7 @@ controllers.controller 'mainController', [
         console.log data
         $scope.data.knownSender = true
         localStorage.setItem 'nickname', $scope.data.nickname
-        $scope.sfxCoin.play()
+        $scope.sfxCoin.play() if Modernizr.audio
         return
 
       wsFailure = (data) ->
@@ -141,7 +141,7 @@ controllers.controller 'mainController', [
             type: 'warning'
             timestamp: Date.now()
           return
-        $scope.sfxBlip.play()
+        $scope.sfxBlip.play() if Modernizr.audio
         popAlert()
         return
 

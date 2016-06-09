@@ -79,3 +79,38 @@ end
 Then(/^I see "([^"]*)" stars$/) do |arg|
   assert page.assert_selector('.glyphicon.glyphicon-star-empty', :count => arg.to_i)
 end
+
+And(/^I go to the poll page$/) do
+  visit '/polls'
+end
+
+Then(/^I should get a "([^"]*)"$/) do |status|
+  assert_equal status.to_i, page.status_code
+end
+
+And(/^I go to the poll page with a token$/) do
+  visit "/polls?auth_code=#{Rails.application.config.auth_code}"
+end
+
+When(/^I update the existing poll$/) do
+  click_link 'Edit'
+  fill_in 'Title' , with: 'new title'
+  fill_in 'Url' , with: 'new url'
+  click_button 'Update Poll'
+end
+
+Then(/^it should be updated$/) do
+  assert page.has_content? 'Poll was successfully updated.'
+end
+
+When(/^I click back$/) do
+  click_link 'Back'
+end
+
+And(/^I click destroy and confirm$/) do
+  click_link 'Destroy'
+end
+
+Then(/^There should be no polls in database$/) do
+  assert Poll.all.empty?
+end

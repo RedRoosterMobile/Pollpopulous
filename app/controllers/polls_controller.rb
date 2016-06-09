@@ -1,6 +1,7 @@
 class PollsController < ApplicationController
   before_action :set_poll, only: [:show, :edit, :update, :destroy]
   before_action :set_poll_by_url, only: [:show_candidates]
+  before_action :auth, only: [:index, :destroy, :update]
 
   # GET /polls
   # GET /polls.json
@@ -87,4 +88,14 @@ class PollsController < ApplicationController
       poll['url'] = poll['url'].parameterize.underscore
       return poll
     end
+
+  def auth
+    if Rails.application.config.auth_code == params[:auth_code].to_s or
+        Rails.application.config.auth_code == session[:auth_code]
+      session[:auth_code] = Rails.application.config.auth_code
+    else
+      puts 'not authorized'
+      render :file => 'public/404.html', :status => :unauthorized
+    end
+  end
 end

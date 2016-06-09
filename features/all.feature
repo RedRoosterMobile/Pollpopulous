@@ -33,3 +33,17 @@ Feature:
     Then I see one star
     And I clean up for coverage
 
+  Scenario: Admin Behavior
+    Given There is a poll set up
+    And Someone has voted on a candiate
+    And I go to the poll page
+    Then I should get a "401"
+    And I go to the poll page with a token
+    Then I should get a "200"
+    When I update the existing poll
+    Then it should be updated
+    When I click back
+    And I click destroy and confirm
+    Then There should be no polls in database
+
+

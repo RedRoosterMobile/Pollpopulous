@@ -32,9 +32,10 @@ Capybara.server do |app, port|
   Rack::Handler::Thin.run(app, :Port => port)
 end
 
-#DEPRECATED: Passing a block to Capybara::server is deprecated, please use Capybara::register_server instead
-
-#Capybara.server = :thin
+#Capybara.register_server :thin do |app, port|
+#  require 'rack/handler/thin'
+#  Rack::Handler::Thin.run(app, :Port => port)
+#end
 
 # allow websockets from localhost
 WebMock.disable_net_connect!(:allow_localhost => true)

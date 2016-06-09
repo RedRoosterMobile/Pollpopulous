@@ -30,6 +30,7 @@ ratings:
     - "**.scss"
 exclude_paths:
 - db/
+- vendor/
 - "app/assets/javascripts/nv.d3.js"
 - "app/assets/javascripts/d3.js"
 - "app/assets/javascripts/bootstrap.min.js"

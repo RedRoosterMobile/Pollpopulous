@@ -2,14 +2,14 @@
 
 @mixin box-shadow($top, $left, $blur, $color, $inset: false) {
   @if $inset {
-    -webkit-box-shadow:inset $top $left $blur $color;
     -moz-box-shadow:inset $top $left $blur $color;
     -ms-box-shadow:inset $top $left $blur $color;
+    -webkit-box-shadow:inset $top $left $blur $color;
     box-shadow:inset $top $left $blur $color;
   } @else {
-    -webkit-box-shadow: $top $left $blur $color;
     -moz-box-shadow: $top $left $blur $color;
     -ms-box-shadow: $top $left $blur $color;
+    -webkit-box-shadow: $top $left $blur $color;
     box-shadow: $top $left $blur $color;
   }
 }
@@ -36,11 +36,12 @@
       $animations: #{$animations + ", "};
     }
   }
+
+  -moz-animation: $animations;
+  -ms-animation: $animations;
+  -o-animation: $animations;
   -webkit-animation: $animations;
-  -moz-animation:    $animations;
-  -ms-animation:    $animations;
-  -o-animation:      $animations;
-  animation:         $animations;
+  animation: $animations;
 }
 
 @mixin keyframes($animation-name) {
@@ -64,6 +65,7 @@
 @mixin animation-timing-function($timing...) {
   -o-animation-timing-function: $timing;
   -moz-animation-timing-function: $timing;
+  -ms-animation-timing-function: $timing;
   -webkit-animation-timing-function: $timing;
   animation-timing-function: $timing;
 }
@@ -120,6 +122,7 @@ rotate3d(1, 0, 0, 50deg)
 
 @mixin transform-origin ($origin) {
   -o-transform-origin: $origin;
+  -moz-transform-origin: $origin;
   -ms-transform-origin: $origin;
   -webkit-transform-origin: $origin;
   transform-origin: $origin;
@@ -133,9 +136,9 @@ rotate3d(1, 0, 0, 50deg)
 }
 
 @mixin rounded($radius: .5em) {
-  -webkit-border-radius: $radius;
   -moz-border-radius: $radius;
   -ms-border-radius: $radius;
+  -webkit-border-radius: $radius;
   border-radius: $radius;
 }
 

@@ -32,13 +32,15 @@
     top:15px;
   }
 
-  img, video {
-    display: block;
-    width: inherit;
-    min-height: 120px;
-    max-height: 130px;
-    max-width: 100%;
-    @include transition(all 1s ease-in-out);
+  .Pollpopulous {
+    img, video {
+      display: block;
+      width: inherit;
+      min-height: 120px;
+      max-height: 130px;
+      max-width: 100%;
+      @include transition(all 1s ease-in-out);
+    }
   }
 
   a:hover {

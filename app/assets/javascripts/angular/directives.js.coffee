@@ -7,8 +7,8 @@ directives.directive 'mmAlertBox', [ ->
 ]
 # http://localhost:3000/vote_here/what_s_the_bset_soy_sauce_url
 directives.directive 'mmGiphy', [
-  '$interval','$sce'
-  ($interval,$sce) ->
+  '$interval','$sce','mmModernizr'
+  ($interval, $sce, modernizr) ->
 
     link = (scope, element, attrs) ->
       unless scope.keywords?
@@ -39,7 +39,7 @@ directives.directive 'mmGiphy', [
               vid = element.find('video')
               if vid? and vid.length > 0
                 # reload video to new source
-                vid[0].load() if Modernizr.video
+                vid[0].load() if modernizr.video
 
             counter++
             counter = 0 if counter >= scope.results.length-1

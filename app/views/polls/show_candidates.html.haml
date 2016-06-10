@@ -34,7 +34,7 @@
                 %input#nickname.form-control{:name => 'nickname', 'ng-disabled' => 'data.knownSender', 'ng-model' => 'data.nickname', :placeholder => 'your name', :type => 'text'}/
               %button.btn.btn-default{:type => 'submit'} Add new option
         .col-md-5.col-sm-4.hidden-xs
-          %mm-giphy{'api-key' => "{{'dc6zaTOxFJmzC'}}", :keywords => 'data.keywords', 'speed-ms' => '{{3000}}', :title => "{{'So Hungry!'}}"}
+          %mm-giphy{'api-key' => "{{'dc6zaTOxFJmzC'}}", :keywords => 'data.keywords',:pipeline => '{{"stickers"}}', 'speed-ms' => '{{3000}}', :title => "{{'So Hungry!'}}"}
       / <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
       %mm-alert-box
   .list-group

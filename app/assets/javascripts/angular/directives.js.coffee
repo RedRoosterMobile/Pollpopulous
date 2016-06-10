@@ -11,16 +11,22 @@ directives.directive 'mmGiphy', [
   ($interval, $sce, modernizr) ->
 
     link = (scope, element, attrs) ->
+
       unless scope.keywords?
         scope.keywords = [
           'funny'
           'cat'
         ]
+
+      unless scope.pipeline?
+        scope.pipeline = 'gifs' # stickers, gifs
+
       unless scope.limit?
         scope.limit = 25
-      # stickers, search
+
       keywordsQuery = scope.keywords.join('+')
-      scope.giphyUrl = "https://api.giphy.com/v1/stickers/search?q=#{keywordsQuery}&api_key=#{scope.apiKey}&limit=#{scope.limit}"
+      params = "#{scope.pipeline}/search?q=#{keywordsQuery}&api_key=#{scope.apiKey}&limit=#{scope.limit}"
+      scope.giphyUrl = "https://api.giphy.com/v1/#{params}"
       counter = 0
       playing = false
       $.get scope.giphyUrl, (data) ->
@@ -63,6 +69,8 @@ directives.directive 'mmGiphy', [
       title: '@'
       speedMs: '@'
       apiKey: '@'
+      limit: '@'
+      pipeline: '@'
     link: link
     template: """
       <div ng-if="image_mp4" class="giphy-container polaroid-images">

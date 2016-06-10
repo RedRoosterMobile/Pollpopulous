@@ -102,11 +102,10 @@
   @include transform(scale($scale) rotate(#{$deg}deg));
 }
 
-/*
-z,y,x,deg
-rotate3d(1, 0, 0, 50deg)
-*/
-/* not working?? */
+
+//z,y,x,deg
+//rotate3d(1, 0, 0, 50deg)
+// not working??
 @mixin translate-scale($x, $y, $scale) {
   @include transform(translate($x, $y) scale($scale));
 }

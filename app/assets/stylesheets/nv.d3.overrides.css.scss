@@ -58,14 +58,14 @@ svg {
   background-size: 100%;
   width: 300px;
   height: 300px;
-}
 
-.cloud .spacer {
-  margin: 50px;
-}
+  .spacer {
+    margin: 50px;
+  }
 
-.cloud .spacer > * {
-  text-shadow: 2px 2px #ff0000;
+  .spacer > * {
+    text-shadow: 2px 2px #ff0000;
+  }
 }
 
 .list-group-item {
@@ -75,52 +75,50 @@ svg {
 //http://www.yearofmoo.com/2013/08/remastered-animation-in-angularjs-1-2.html
 .animation {
   @include transition(1s);
-}
 
-.animation.ng-enter {
-  opacity: 0;
-}
+  &.ng-enter {
+    opacity: 0;
+    &.ng-enter-active {
+      opacity: 1;
+    }
+  }
 
-.animation.ng-leave {
-  opacity: 1;
-}
+  &.ng-leave {
+    opacity: 1;
+  }
 
-.animation.ng-enter.ng-enter-active {
-  opacity: 1;
-
-}
-
-//when clicked close() or alert is dropped off the array
-.animation.ng-leave.ng-leave-active {
-  opacity: 0;
-  @include transform-origin('0 0');
-  @include animation('bounceOut ease 4s 1');
+  //when clicked close() or alert is dropped off the array
+  &.ng-leave-active {
+    opacity: 0;
+    @include transform-origin('0 0');
+    @include animation('bounceOut ease 4s 1');
+  }
 }
 
 // http://www.markskowrondesign.com/blog/are-your-css3-animations-broken-in-ie10-and-ie11/
 @include keyframes(bounceOut) {
   0% {
     opacity: 1;
-    @include translate(0px,0);
+    @include translate(0px, 0);
   }
   20% {
     opacity: 1;
-    @include translate(20px,0);
+    @include translate(20px, 0);
   }
   100% {
     opacity: 0;
-    @include translate(-1000px,0);
+    @include translate(-1000px, 0);
   }
 }
 
 //  http://www.cssanimate.com/
 .alert-box {
-  position: fixed;
   top: 0;
   left: 0;
-  padding: 15px;
   max-width: 50%;
   min-width: 300px;
+  padding: 15px;
+  position: fixed;
 }
 
 $sort-animation-speed: .2s;
@@ -144,11 +142,13 @@ span.glyphicon-star-empty {
   opacity: 1;
 
   @include animation-timing-function(ease-in);
+
   &.ng-enter {
-    @include translate-rotate(100px,0, 360);
+    @include translate-rotate(100px, 0, 360);
     opacity: 0.1;
     color: #90ee90;
   }
+
   &.ng-enter.ng-enter-active {
 
     @include translate(0px,0);
@@ -156,10 +156,12 @@ span.glyphicon-star-empty {
 
     color: #add8e6;
   }
+
   &.ng-leave {
-    @include translate(-100px,0);
+    @include translate(-100px, 0);
     opacity: 0;
   }
+
 }
 
 body .well {

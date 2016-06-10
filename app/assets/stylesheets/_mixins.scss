@@ -2,10 +2,10 @@
 
 @mixin box-shadow($top, $left, $blur, $color, $inset: false) {
   @if $inset {
-    -moz-box-shadow:inset $top $left $blur $color;
-    -ms-box-shadow:inset $top $left $blur $color;
-    -webkit-box-shadow:inset $top $left $blur $color;
-    box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow: inset $top $left $blur $color;
+    -ms-box-shadow: inset $top $left $blur $color;
+    -webkit-box-shadow: inset $top $left $blur $color;
+    box-shadow: inset $top $left $blur $color;
   } @else {
     -moz-box-shadow: $top $left $blur $color;
     -ms-box-shadow: $top $left $blur $color;
@@ -20,7 +20,7 @@
   text-decoration: none;
   font: 14px/100% Arial, Helvetica, sans-serif;
   padding: .5em;
-  text-shadow: 0 1px 1px rgba(0,0,0,.3);
+  text-shadow: 0 1px 1px rgba(0, 0 , 0, .3);
   @include rounded();
   @include box-shadow(0, 1px, 2px, rgba(0, 0, 0, .2));
 }
@@ -94,11 +94,11 @@
   @include transform(skew(#{$x}deg, #{$y}deg));
 }
 
-@mixin translate-rotate($x,$y,$deg) {
+@mixin translate-rotate($x, $y, $deg) {
   @include transform(translate($x, $y) rotate(#{$deg}deg));
 }
 
-@mixin scale-rotate($scale,$deg) {
+@mixin scale-rotate($scale, $deg) {
   @include transform(scale($scale) rotate(#{$deg}deg));
 }
 
@@ -107,7 +107,7 @@ z,y,x,deg
 rotate3d(1, 0, 0, 50deg)
 */
 /* not working?? */
-@mixin translate-scale($x,$y,$scale) {
+@mixin translate-scale($x, $y, $scale) {
   @include transform(translate($x, $y) scale($scale));
 }
 
@@ -131,8 +131,8 @@ rotate3d(1, 0, 0, 50deg)
 
 @mixin gradient($from, $to) {
   background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));
-  background: -moz-linear-gradient(top,  $from, $to);
-  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');
+  background: -moz-linear-gradient(top, $from, $to);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');
 }
 
 @mixin rounded($radius: .5em) {
@@ -150,7 +150,7 @@ rotate3d(1, 0, 0, 50deg)
   text-decoration: none;
   font: 14px/100% Arial, Helvetica, sans-serif;
   padding: .5em 2em .55em;
-  text-shadow: 0 1px 1px rgba(0,0,0,.3);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
   @include rounded();
   @include box-shadow(0, 1px, 2px, rgba(0, 0, 0, .2));
 
@@ -161,16 +161,16 @@ rotate3d(1, 0, 0, 50deg)
   @include gradient(saturate($color, 15%), darken($color, 15%));
 
   &:hover {
-    text-decoration: none;
     background: saturate($color, 10%);
+    text-decoration: none;
     @include gradient(saturate($color, 5%), darken($color, 5%));
   }
 
   &:active {
-    position: relative;
-    top: 1px;
     color: saturate($color, 15%);
     @include gradient(saturate($color, 15%), lighten($color, 15%));
+    position: relative;
+    top: 1px;
   }
 
 }

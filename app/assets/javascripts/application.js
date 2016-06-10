@@ -22,19 +22,19 @@
 //= require_tree ../templates
 
 // charts
-//= require d3.js
-//= require nv.d3.js
-//= require angular/modules/angular.audio
-//= require angular/modules/angularjs-nvd3-directives
+//= require ../../../vendor/assets/javascripts/d3.js
+//= require ../../../vendor/assets/javascripts/nv.d3.js
+//= require ../../../vendor/assets/javascripts/angular/modules/angular.audio
+//= require ../../../vendor/assets/javascripts/angular/modules/angularjs-nvd3-directives
 // my angular stuff
 //= require angular/controllers
 //= require angular/directives
 //= require angular/services
 
 // other angular stuff
-//= require angular/animate.js
-//= require ui-bootstrap-tpls-0.11.2.js
-//= require modernizr-2.7.2
+//= require ../../../vendor/assets/javascripts/angular/animate.js
+//= require ../../../vendor/assets/javascripts/ui-bootstrap-tpls-0.11.2.js
+//= require ../../../vendor/assets/javascripts/modernizr-2.7.2
 
 //= require_tree .
 

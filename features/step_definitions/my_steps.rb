@@ -24,7 +24,6 @@ When(/^I enter my nickname "([^"]*)"$/) do |arg|
 end
 
 And(/^I vote for "([^"]*)"$/) do |arg|
-  sleep 1
   assert page.has_css?('a.vote.btn')
   assert page.assert_selector('a.vote', :text => 'Vote here', :visible => true)
   find(:css,'a.vote').click
@@ -36,11 +35,9 @@ end
 
 When(/^I revoke vote for "([^"]*)"$/) do |arg|
   find(:css,'a.revoke').click
-  sleep 1
 end
 
 Then(/^I see no stars$/) do
-  sleep 1
   page.has_no_css?('.glyphicon.glyphicon-star-empty')
 end
 

@@ -13,32 +13,31 @@ body {
   background-color: #108a93;
   position: relative;
   overflow: hidden;
-}
 
-body:before {
-  background-color: #108a93;
-  content:"";
-  position: absolute;
-  width: 100%;
-  height:100%;
-  top:-30px;
-  background-image: url(/animated_launch_day.svg);
-  opacity: 0.75;
-  // get the fuck back!
-  z-index: -1;
-}
-
-body.rolling:before {
-  top: -100%;
-  left: -100%;
-  width: 300%;
-  height: 300%;
-  @include scale-rotate(0.8, 0);
-  @include animation(spin 222s linear infinite);
+  &::before {
+    background-color: #108a93;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -30px;
+    background-image: url(/animated_launch_day.svg);
+    opacity: .75;
+    // get the fuck back!
+    z-index: -1;
+  }
+  &.rolling::before {
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    @include scale-rotate(.8, 0);
+    @include animation(spin 222s linear infinite);
+  }
 }
 
 @include keyframes('spin') {
   100% {
-    @include scale-rotate(0.8,360);
+    @include scale-rotate(.8, 360);
   }
 }

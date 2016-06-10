@@ -151,7 +151,7 @@ span.glyphicon-star-empty {
 
   &.ng-enter.ng-enter-active {
 
-    @include translate(0px,0);
+    @include translate(0px, 0);
     opacity: 1;
 
     color: #add8e6;

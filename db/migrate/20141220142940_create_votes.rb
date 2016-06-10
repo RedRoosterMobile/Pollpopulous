@@ -5,7 +5,7 @@ class CreateVotes < ActiveRecord::Migration
       t.integer :candidate_id
       t.string  :nickname
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

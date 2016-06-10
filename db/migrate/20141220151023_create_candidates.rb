@@ -5,7 +5,7 @@ class CreateCandidates < ActiveRecord::Migration
       t.string :name
       t.string :created_by # to remove candidates if they have no vote
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

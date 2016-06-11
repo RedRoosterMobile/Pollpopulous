@@ -38,12 +38,16 @@
       position: relative;
     }
   }
+}
 
+.container {
+  img, video {
+    display: block;
+    width: inherit;
+    @include transition(all 1s ease-in-out);
+  }
   .pollpopulous {
-    img,
-    video {
-      display: block;
-      width: inherit;
+    img, video {
       min-height: 120px;
       max-height: 130px;
       max-width: 100%;

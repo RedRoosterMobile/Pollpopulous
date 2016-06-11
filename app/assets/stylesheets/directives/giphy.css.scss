@@ -18,15 +18,13 @@
     text-decoration: none;
     @include box-shadow(0 , 4px, 6px, rgba(0, 0, 0, .3));
     @include transition(all .15s linear);
-    z-index: 0;
+    z-index: 10;
     position: relative;
     @include transform(rotate(4deg));
     @include transform(rotate3d(0, 0, 1, 4deg));
 
     &:hover {
-      @include transform(rotate(0deg));
-      @include transform(scale(1.5));
-      z-index: 10;
+      @include transform(scale(1.5) translate(0, 25px) rotate(0deg));
       @include box-shadow(0 , 10px, 20px, rgba(0, 0, 0, .7));
     }
 
@@ -45,6 +43,7 @@
   video {
     display: block;
     width: inherit;
+    max-height: 240px;
     @include transition(all 1s ease-in-out);
   }
   .pollpopulous {

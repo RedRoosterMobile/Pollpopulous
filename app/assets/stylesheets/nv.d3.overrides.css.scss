@@ -49,7 +49,6 @@ svg {
 .list-group-item-text {
   span.glyphicon-star-empty {
     color: gold;
-
   }
 }
 
@@ -61,15 +60,11 @@ svg {
 
   .spacer {
     margin: 50px;
+    > * {
+      text-shadow: 2px 2px #ff0000;
+    }
   }
 
-  .spacer > * {
-    text-shadow: 2px 2px #ff0000;
-  }
-}
-
-.list-group-item {
-  background-color: rgba(19, 160, 170, .5);
 }
 
 //http://www.yearofmoo.com/2013/08/remastered-animation-in-angularjs-1-2.html
@@ -126,6 +121,8 @@ $sort-animation-speed: .2s;
 $star-animation-speed: .5s;
 
 .list-group-item {
+  background-color: rgba(19, 160, 170, .5);
+
   @include transition($sort-animation-speed);
 
   &.ng-move {
@@ -145,16 +142,14 @@ span.glyphicon-star-empty {
 
   &.ng-enter {
     @include translate-rotate(100px, 0, 360);
-    opacity: 0.1;
     color: #90ee90;
-  }
+    opacity: .1;
 
-  &.ng-enter.ng-enter-active {
-
-    @include translate(0px, 0);
-    opacity: 1;
-
-    color: #add8e6;
+    &.ng-enter-active {
+      color: #add8e6;
+      opacity: 1;
+      @include translate(0px, 0);
+    }
   }
 
   &.ng-leave {

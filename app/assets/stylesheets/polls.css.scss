@@ -4,19 +4,19 @@
 @import 'mixins';
 
 input {
-  color:#000000;
+  color: #000000;
 }
 
 body {
-  height:100%;
-  width:100%;
+  height: 100%;
+  width: 100%;
   background-color: #108a93;
   position: relative;
   overflow: hidden;
 
   &::before {
     background-color: #108a93;
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     height: 100%;

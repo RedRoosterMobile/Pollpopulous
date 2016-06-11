@@ -46,12 +46,6 @@ svg {
   }
 }
 
-.list-group-item-text {
-  span.glyphicon-star-empty {
-    color: gold;
-  }
-}
-
 .cloud {
   background: url(/cloud.svg);
   background-size: 100%;
@@ -134,7 +128,8 @@ $star-animation-speed: .5s;
   }
 }
 
-span.glyphicon-star-empty {
+.glyphicon-star-empty {
+  color: gold;
   @include transition($star-animation-speed);
   opacity: 1;
 
@@ -148,7 +143,7 @@ span.glyphicon-star-empty {
     &.ng-enter-active {
       color: #add8e6;
       opacity: 1;
-      @include translate(0px, 0);
+      @include translate(0, 0);
     }
   }
 

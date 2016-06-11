@@ -38,8 +38,8 @@ controllers.controller 'mainController', [
       return
 
     colors = [
-      'url(#gradientForegroundPurple)'
-      'url(#gradientForegroundRed)'
+      'url(#gradient-foreground-purple)'
+      'url(#gradient-foreground-red)'
       'rgba(120,230,122,0.3)'
       'gold'
       'purple'
